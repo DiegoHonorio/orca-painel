@@ -2,6 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/stablyai/orca/main/docs/schemas/plugins/orca-plugin.v2.schema.json",
   "manifestVersion": 2,
   "id": "painel-trabalho",
+  "publisher": "diegohonorio",
   "name": "Painel de Trabalho",
   "version": "0.3.0",
   "description": "See what you worked on by day, week and month: Claude Code and Codex active time, tokens and estimated cost, your commits, a pomodoro timer and a to-do list. Everything stays on your machine. English, Português, Español, 中文.",
