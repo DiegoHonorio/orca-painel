@@ -20,6 +20,7 @@
     erro: null,
     cpuHist: [],
     memHist: [],
+    gpuHist: [],
     ultPortas: 0,
     ultDiscos: 0,
     intervaloS: 3,
@@ -162,6 +163,35 @@
     )
   }
 
+  function desenharGpus(d) {
+    const alvo = $('gpus')
+    const lista = d.gpus || []
+    alvo.replaceChildren(
+      ...lista.map((g, i) => {
+        const extra = [g.temp !== null ? `${num(g.temp, 0)}°C` : null, g.watts !== null ? `${num(g.watts)} W` : null].filter(Boolean).join(' · ')
+        const titulo = el('div', { class: 'top' }, el('span', { title: g.nome }, `GPU · ${g.nome}${g.fabricante === 'intel' ? ` (${t('gpuIntegrada')})` : ''}`), el('span', { class: 'num' }, extra))
+        if (g.dormindo) {
+          return el('div', { class: 'gpu' }, titulo, el('div', { class: 'val dorme' }, `💤 ${t('gpuRepouso')}`), el('span'), el('p', { class: 'dica' }, t('gpuRepousoDica')))
+        }
+        let valor
+        if (g.uso !== null) valor = el('div', { class: 'val num' }, num(g.uso, 0), el('em', {}, '%'))
+        else if (g.freqMhz) valor = el('div', { class: 'val num' }, num(g.freqMhz, 0), el('em', {}, `/ ${num(g.freqMaxMhz ?? 0, 0)} MHz`))
+        else valor = el('div', { class: 'val dorme' }, t('gpuSemUso'))
+        const hist = est.gpuHist[i] || []
+        const partes = [titulo, valor, g.uso !== null || g.freqMhz ? spark(hist, '#d17ad6') : el('span')]
+        if (g.memTotal) {
+          partes.push(el('div', { class: 'vram num' }, el('span', {}, 'VRAM'), barra([{ v: (g.memUsada ?? 0) / g.memTotal, cor: '#d17ad6' }]), el('span', {}, `${fmtBytes(g.memUsada ?? 0)} / ${fmtBytes(g.memTotal)}`)))
+        } else if (g.memUsada) {
+          partes.push(el('div', { class: 'vram num' }, el('span', {}, t('memoria')), el('span'), el('span', {}, fmtBytes(g.memUsada))))
+        }
+        if (g.processos.length) {
+          partes.push(el('div', { class: 'apps', title: g.processos.map((p) => `${p.nome} ${fmtBytes(p.mem)}`).join('\n') }, `${t('usandoGpu')}: `, ...g.processos.flatMap((p, j) => [j ? ' · ' : '', el('b', {}, p.nome), ` ${fmtBytes(p.mem)}`])))
+        }
+        return el('div', { class: 'gpu' }, ...partes)
+      })
+    )
+  }
+
   function desenharMemoria(d) {
     const m = d.mem
     const temCache = m.buffers + m.cache > 0
@@ -261,6 +291,7 @@
       return
     }
     desenharMedidores(d)
+    desenharGpus(d)
     desenharMemoria(d)
     desenharProcessos(d)
     desenharPortas()
@@ -291,6 +322,10 @@
         est.ultDiscos = agora
       }
       est.cpuHist = [...est.cpuHist, d.cpu.total].slice(-HIST)
+      est.gpuHist = (d.gpus || []).map((g, i) => {
+        const v = g.uso !== null ? g.uso : g.freqMhz && g.freqMaxMhz ? (g.freqMhz / g.freqMaxMhz) * 100 : null
+        return v === null ? [] : [...(est.gpuHist[i] || []), v].slice(-HIST)
+      })
       est.memHist = [...est.memHist, ((d.mem.total - d.mem.disponivel) / d.mem.total) * 100].slice(-HIST)
     } catch (e) {
       est.erro = e?.message || String(e)
@@ -371,9 +406,10 @@
       desenharSistema()
     },
     /** Usado pela demonstração (tools/demo) para os gráficos não começarem vazios nos prints. */
-    preencherHistorico(cpu, mem) {
+    preencherHistorico(cpu, mem, gpu = []) {
       est.cpuHist = cpu.slice(-HIST)
       est.memHist = mem.slice(-HIST)
+      est.gpuHist = gpu.map((h) => h.slice(-HIST))
       desenharSistema()
     }
   }

@@ -158,6 +158,21 @@ section[hidden] { display: none; }
 .visao[hidden] { display: none; }
 
 /* Sistema */
+.gpus { display: grid; gap: 8px; grid-template-columns: minmax(0, 1fr); }
+.gpus:empty { display: none; }
+.gpu { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px; display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 4px 12px; align-items: center; min-width: 0; }
+.gpu .top { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 8px; font-size: 11px; color: var(--mut); }
+.gpu .top span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--fg); }
+.gpu .top span:last-child { white-space: nowrap; }
+.gpu .val { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
+.gpu .val em { font-style: normal; font-size: 12px; color: var(--mut); font-weight: 400; margin-left: 3px; }
+.gpu .val.dorme { font-size: 13px; font-weight: 500; color: var(--mut); }
+.gpu .spark { height: 30px; }
+.gpu .vram { grid-column: 1 / -1; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px; align-items: center; font-size: 11px; color: var(--mut); }
+.gpu .vram .barra { height: 6px; }
+.gpu .apps { grid-column: 1 / -1; font-size: 11px; color: var(--dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gpu .apps b { color: var(--mut); font-weight: 500; }
+.gpu .dica { grid-column: 1 / -1; font-size: 11px; color: var(--dim); margin: 0; min-height: 0; }
 .sis-estado { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--mut); gap: 8px; }
 .sis-estado .bt { font-size: 11px; padding: 2px 8px; }
 .medidores { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }

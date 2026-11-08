@@ -69,6 +69,21 @@ export type SistemaMaquina = {
 }
 export type SistemaProcesso = { nome: string; processos: number; cpu: number; mem: number; agente: boolean }
 export type SistemaPorta = { porta: number; programa: string; projeto: string | null; desde: number | null; publica: boolean }
+export type SistemaGpu = {
+  nome: string
+  fabricante: 'nvidia' | 'amd' | 'intel' | 'apple'
+  /** % de uso; null quando a GPU não informa (Intel sem root). */
+  uso: number | null
+  memUsada: number | null
+  memTotal: number | null
+  temp: number | null
+  watts: number | null
+  freqMhz: number | null
+  freqMaxMhz: number | null
+  /** GPU dedicada em repouso: não é consultada para não acordar. */
+  dormindo: boolean
+  processos: { nome: string; mem: number }[]
+}
 export type SistemaDisco = { nome: string; total: number; usado: number }
 export type SistemaFaixa = {
   rede: { rx: number; tx: number } | null
@@ -77,6 +92,7 @@ export type SistemaFaixa = {
 export type Sistema = SistemaMaquina & {
   /** null quando o sistema operacional não é suportado. */
   processos: SistemaProcesso[] | null
+  gpus: SistemaGpu[] | null
   portas?: SistemaPorta[] | null
   discos?: SistemaDisco[]
   intervaloS: number

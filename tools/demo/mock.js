@@ -16,6 +16,7 @@
   const MB = 1024 ** 2
   const onda = (i, base, amp) => base + Math.sin(i / 3) * amp + Math.sin(i / 1.3) * amp * 0.4
   const cpuHist = Array.from({ length: 40 }, (_, i) => onda(i, 24, 9))
+  const gpuHist = Array.from({ length: 40 }, (_, i) => onda(i, 18, 10))
   const memHist = Array.from({ length: 40 }, (_, i) => onda(i, 58, 1.5))
   const sistema = (e) => ({
     cpu: { total: cpuHist.at(-1), nucleos: [31, 18, 64, 22, 12, 27, 9, 19, 35, 14, 21, 8] },
@@ -30,6 +31,9 @@
       { nome: 'postgres', processos: 9, cpu: 1.1, mem: 640 * MB, agente: false },
       { nome: 'codex', processos: 1, cpu: 0.9, mem: 610 * MB, agente: true },
       { nome: 'slack', processos: 6, cpu: 0.6, mem: 1.1 * GB, agente: false }
+    ],
+    gpus: [
+      { nome: 'GeForce RTX 4060 Laptop GPU', fabricante: 'nvidia', uso: gpuHist.at(-1), memUsada: 2.1 * GB, memTotal: 8 * GB, temp: 54, watts: 18.4, freqMhz: null, freqMaxMhz: null, dormindo: false, processos: [{ nome: 'orca', mem: 412 * MB }, { nome: 'chrome', mem: 286 * MB }] }
     ],
     ...(e.portas ? { portas: [
       { porta: 3000, programa: 'node', projeto: 'web-app', desde: agora - 2 * 3600000, publica: false },
@@ -64,7 +68,7 @@
     setTimeout(() => {
       if (q.get('visao') === 'sistema') {
         document.querySelector('.menu button[data-visao="sistema"]')?.click()
-        setTimeout(() => window.sistemaPainel?.preencherHistorico(cpuHist, memHist), 100)
+        setTimeout(() => window.sistemaPainel?.preencherHistorico(cpuHist, memHist, [gpuHist]), 100)
       } else document.querySelector('.menu button[data-visao="trabalho"]')?.click()
       document.querySelector(`.seg .s button[data-tipo="${tipo}"]`)?.click()
       const aba = q.get('aba')

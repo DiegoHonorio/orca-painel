@@ -9,6 +9,7 @@ import { listaDePastas } from './coleta/projeto.ts'
 import { calcularPeriodo, montarRelatorio } from './relatorio.ts'
 import type { EstadoPomodoro, Pomodoro, Tarefa, TipoPeriodo } from './protocol.ts'
 import { lerFaixa } from './sistema/faixa.ts'
+import { lerGpus } from './sistema/gpu.ts'
 import { lerDiscos, lerMaquina } from './sistema/maquina.ts'
 import { lerPortas } from './sistema/portas.ts'
 import { lerProcessos } from './sistema/processos.ts'
@@ -313,10 +314,11 @@ export default function activate(orca: OrcaWorkerApi): void {
 
   orca.panels.handle('sistema.obter', async ({ portas, discos }) => {
     const c = await config()
-    const [maquina, processos, listaPortas] = await Promise.all([lerMaquina(), lerProcessos(), portas ? lerPortas() : undefined])
+    const [maquina, processos, gpus, listaPortas] = await Promise.all([lerMaquina(), lerProcessos(), lerGpus(), portas ? lerPortas() : undefined])
     return {
       ...maquina,
       processos,
+      gpus,
       ...(portas ? { portas: listaPortas } : {}),
       ...(discos ? { discos: lerDiscos() } : {}),
       intervaloS: Math.min(10, Math.max(2, Math.round(Number(c.sistemaIntervalo) || 3)))
