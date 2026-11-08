@@ -3,8 +3,8 @@
   "manifestVersion": 2,
   "id": "painel-trabalho",
   "name": "Painel de Trabalho",
-  "version": "0.2.0",
-  "description": "See what you worked on by day, week and month: Claude Code and Codex time, tokens and estimated cost, your commits, a pomodoro timer and a to-do list. Everything stays on your machine. Interface in Portuguese (pt-BR).",
+  "version": "0.3.0",
+  "description": "See what you worked on by day, week and month: Claude Code and Codex active time, tokens and estimated cost, your commits, a pomodoro timer and a to-do list. Everything stays on your machine. English, Português, Español, 中文.",
   "license": "MIT",
   "author": {
     "name": "Diego Honorio Santos"
@@ -55,11 +55,11 @@
     "commands": [
       {
         "id": "pomodoro.alternar",
-        "title": "Pomodoro: iniciar / pausar"
+        "title": "Pomodoro: start / pause"
       },
       {
         "id": "pomodoro.parar",
-        "title": "Pomodoro: parar"
+        "title": "Pomodoro: stop"
       }
     ],
     "statusBarItems": [
@@ -67,14 +67,34 @@
         "id": "pomodoro",
         "text": "Pomodoro",
         "icon": "play",
-        "tooltip": "Pomodoro: clique para iniciar ou pausar",
+        "tooltip": "Pomodoro: click to start or pause",
         "command": "pomodoro.alternar"
       }
     ],
     "settings": [
       {
+        "key": "idioma",
+        "title": "Language / Idioma / Idioma / 语言",
+        "type": "string",
+        "default": "auto",
+        "enum": [
+          "auto",
+          "en",
+          "pt-BR",
+          "es",
+          "zh-CN"
+        ],
+        "enumLabels": [
+          "Same as Orca",
+          "English",
+          "Português (Brasil)",
+          "Español",
+          "中文（简体）"
+        ]
+      },
+      {
         "key": "focoMinutos",
-        "title": "Pomodoro: minutos de foco",
+        "title": "Pomodoro: focus minutes",
         "type": "integer",
         "default": 25,
         "minimum": 1,
@@ -82,7 +102,7 @@
       },
       {
         "key": "pausaMinutos",
-        "title": "Pomodoro: minutos de pausa curta",
+        "title": "Pomodoro: short break minutes",
         "type": "integer",
         "default": 5,
         "minimum": 1,
@@ -90,7 +110,7 @@
       },
       {
         "key": "pausaLongaMinutos",
-        "title": "Pomodoro: minutos de pausa longa",
+        "title": "Pomodoro: long break minutes",
         "type": "integer",
         "default": 15,
         "minimum": 1,
@@ -98,7 +118,7 @@
       },
       {
         "key": "ciclosAtePausaLonga",
-        "title": "Pomodoro: focos até a pausa longa",
+        "title": "Pomodoro: focus rounds before a long break",
         "type": "integer",
         "default": 4,
         "minimum": 1,
@@ -106,25 +126,25 @@
       },
       {
         "key": "pastasClaude",
-        "title": "Pastas de dados do Claude Code (separadas por vírgula)",
+        "title": "Claude Code data folders (comma-separated)",
         "type": "string",
         "default": "~/.claude"
       },
       {
         "key": "pastasCodex",
-        "title": "Pastas de dados do Codex (separadas por vírgula)",
+        "title": "Codex data folders (comma-separated)",
         "type": "string",
         "default": "~/.codex"
       },
       {
         "key": "pastasRepos",
-        "title": "Pastas onde procurar repositórios git (separadas por vírgula)",
+        "title": "Folders to search for git repositories (comma-separated)",
         "type": "string",
         "default": "~/dev"
       },
       {
         "key": "emailsGit",
-        "title": "E-mails de autor dos seus commits (vazio = git config user.email)",
+        "title": "Your commit author e-mails (empty = git config user.email)",
         "type": "string",
         "default": ""
       }

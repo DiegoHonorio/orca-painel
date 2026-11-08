@@ -80,7 +80,7 @@ section[hidden] { display: none; }
 #rotuloPeriodo { padding: 0 4px; white-space: nowrap; }
 .abas { display: flex; gap: 14px; border-bottom: 1px solid var(--line); font-size: 12px; margin-top: -2px; }
 .abas button { border: 0; background: transparent; font-weight: 500; color: var(--mut); padding: 0 0 7px; border-bottom: 2px solid transparent; margin-bottom: -1px; }
-.abas button span { color: var(--dim); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; }
+.abas button .n { color: var(--dim); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; }
 .abas button.on { color: var(--fg); border-bottom-color: var(--acc); }
 
 .status { color: var(--mut); padding: 14px 0; text-align: center; }

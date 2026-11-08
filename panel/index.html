@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,35 +10,35 @@
     <section class="pomo" id="pomodoro" data-fase="parado">
       <div id="pomoAnel" class="pomo-anel"></div>
       <div class="pomo-info">
-        <span class="fase" id="pomoFase"><i></i><span>Pomodoro</span></span>
-        <input id="pomoRotulo" class="rotulo" type="text" maxlength="120" placeholder="No que você vai focar?" aria-label="No que você vai focar" />
+        <span class="fase" id="pomoFase"><i></i><span data-i18n="pomodoro">Pomodoro</span></span>
+        <input id="pomoRotulo" class="rotulo" type="text" maxlength="120" data-i18n-placeholder="focoPlaceholder" data-i18n-aria-label="focoPlaceholder" />
         <div class="bts">
-          <button id="pomoPrincipal" class="bt p">Iniciar foco</button>
-          <button id="pomoPular" class="bt" hidden>Pular</button>
-          <button id="pomoParar" class="bt ic" title="Parar" aria-label="Parar" hidden>■</button>
+          <button id="pomoPrincipal" class="bt p" data-i18n="iniciarFoco">Start focus</button>
+          <button id="pomoPular" class="bt" data-i18n="pular" data-i18n-title="pularTitulo" hidden>Skip</button>
+          <button id="pomoParar" class="bt ic" data-i18n-title="parar" data-i18n-aria-label="parar" hidden>■</button>
         </div>
       </div>
     </section>
 
     <nav class="seg">
-      <div class="s" role="tablist" aria-label="Período">
-        <button data-tipo="dia" class="on">Dia</button>
-        <button data-tipo="semana">Semana</button>
-        <button data-tipo="mes">Mês</button>
+      <div class="s" role="tablist" data-i18n-aria-label="periodo">
+        <button data-tipo="dia" class="on" data-i18n="dia">Day</button>
+        <button data-tipo="semana" data-i18n="semana">Week</button>
+        <button data-tipo="mes" data-i18n="mes">Month</button>
       </div>
       <div class="nav">
-        <button id="anterior" class="ic" aria-label="Período anterior">‹</button>
-        <span id="rotuloPeriodo" class="num">Hoje</span>
-        <button id="proximo" class="ic" aria-label="Próximo período" disabled>›</button>
-        <button id="atualizar" class="ic" aria-label="Atualizar" title="Atualizar">↻</button>
+        <button id="anterior" class="ic" data-i18n-aria-label="periodoAnterior" data-i18n-title="periodoAnterior">‹</button>
+        <span id="rotuloPeriodo" class="num"></span>
+        <button id="proximo" class="ic" data-i18n-aria-label="proximoPeriodo" data-i18n-title="proximoPeriodo" disabled>›</button>
+        <button id="atualizar" class="ic" data-i18n-aria-label="atualizar" data-i18n-title="atualizar">↻</button>
       </div>
     </nav>
 
     <nav class="abas" role="tablist">
-      <button data-aba="resumo" class="on">Resumo</button>
-      <button data-aba="sessoes">Sessões <span id="nSessoes"></span></button>
-      <button data-aba="commits">Commits <span id="nCommits"></span></button>
-      <button data-aba="tarefas">Tarefas <span id="nTarefas"></span></button>
+      <button data-aba="resumo" class="on"><span data-i18n="resumo">Summary</span></button>
+      <button data-aba="sessoes"><span data-i18n="sessoes">Sessions</span> <span class="n" id="nSessoes"></span></button>
+      <button data-aba="commits"><span data-i18n="commits">Commits</span> <span class="n" id="nCommits"></span></button>
+      <button data-aba="tarefas"><span data-i18n="tarefas">Tasks</span> <span class="n" id="nTarefas"></span></button>
     </nav>
 
     <main>
@@ -48,19 +48,19 @@
         <div class="kpis" id="kpis"></div>
 
         <div class="bloco">
-          <div class="cab"><h3>Onde foi o tempo</h3><small>tempo ativo</small></div>
+          <div class="cab"><h3 data-i18n="ondeFoiTempo"></h3><small data-i18n="tempoAtivoMin"></small></div>
           <div class="donut"><div id="donut"></div><div class="leg" id="legenda"></div></div>
         </div>
 
         <div class="bloco">
           <div class="cab">
-            <h3 id="tituloBarras">Por hora</h3>
-            <select id="metrica" class="seletor" aria-label="Métrica do gráfico">
-              <option value="minutos">Tempo ativo</option>
-              <option value="custo">Custo estimado</option>
-              <option value="focoMin">Foco</option>
-              <option value="commits">Commits</option>
-              <option value="tokens">Tokens</option>
+            <h3 id="tituloBarras"></h3>
+            <select id="metrica" class="seletor" data-i18n-aria-label="metricaGrafico">
+              <option value="minutos" data-i18n="tempoAtivo"></option>
+              <option value="custo" data-i18n="custoEstimado"></option>
+              <option value="focoMin" data-i18n="foco"></option>
+              <option value="commits" data-i18n="commits"></option>
+              <option value="tokens" data-i18n="tokens"></option>
             </select>
           </div>
           <div id="barras"></div>
@@ -68,16 +68,16 @@
         </div>
 
         <div class="bloco">
-          <div class="cab"><h3>Últimas sessões</h3><button class="link" id="verSessoes">ver todas ›</button></div>
+          <div class="cab"><h3 data-i18n="ultimasSessoes"></h3><button class="link" id="verSessoes" data-i18n="verTodas"></button></div>
           <div class="lista" id="ultimasSessoes"></div>
         </div>
 
         <div class="bloco">
-          <div class="cab"><h3>Modelos</h3><small id="tokensTotal" class="num"></small></div>
+          <div class="cab"><h3 data-i18n="modelos"></h3><small id="tokensTotal" class="num"></small></div>
           <div class="lista" id="modelos"></div>
         </div>
 
-        <p class="nota">Custo estimado com os preços da API; em plano de assinatura você não paga por token. Tempo ativo conta os períodos com atividade dos agentes (pausas acima de 10 min não contam) e não soma duas vezes agentes em paralelo.</p>
+        <p class="nota" data-i18n="nota"></p>
       </section>
 
       <section data-painel="sessoes" hidden><div class="lista" id="sessoes"></div></section>
@@ -85,15 +85,16 @@
 
       <section data-painel="tarefas" hidden>
         <form id="novaTarefa" class="nova-tarefa">
-          <input id="textoTarefa" class="campo" type="text" maxlength="300" placeholder="Nova tarefa…" autocomplete="off" />
-          <button class="bt p" type="submit">Adicionar</button>
+          <input id="textoTarefa" class="campo" type="text" maxlength="300" data-i18n-placeholder="novaTarefa" data-i18n-aria-label="novaTarefa" autocomplete="off" />
+          <button class="bt p" type="submit" data-i18n="adicionar"></button>
         </form>
         <ul id="tarefas" class="tarefas"></ul>
-        <button id="limparFeitas" class="link" hidden>Limpar concluídas</button>
+        <button id="limparFeitas" class="link" data-i18n="limparConcluidas" hidden></button>
         <div class="bloco" id="concluidasPeriodo"></div>
       </section>
     </main>
 
+    <script src="i18n.js"></script>
     <script src="painel.js"></script>
   </body>
 </html>

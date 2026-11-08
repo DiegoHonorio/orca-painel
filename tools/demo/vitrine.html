@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Vitrine do Painel de Trabalho</title>
@@ -40,38 +40,38 @@
     <script>
       const modos = {
         capa: {
-          titulo: 'Veja <em>no que você trabalhou</em>, sem sair do Orca.',
-          sub: 'Tempo ativo, tokens, custo, commits e pomodoro por dia, semana e mês. Tudo lido da sua própria máquina.',
+          titulo: 'See <em>what you worked on</em>, without leaving Orca.',
+          sub: 'Active time, tokens, cost, commits and pomodoro by day, week and month. All read from your own machine.',
           lista: [],
           telas: ['tipo=semana', 'tipo=dia&aba=sessoes&pomo=pausa']
         },
         resumo: {
-          titulo: 'Seu dia, semana e mês num relance.',
+          titulo: 'Your day, week and month at a glance.',
           sub: '',
-          lista: ['Tempo ativo dos agentes, sem contar em dobro os que rodam em paralelo', 'Onde foi o tempo, projeto por projeto', 'Custo estimado e tokens por modelo', 'Comparação com o período anterior'],
+          lista: ['Agent active time, never double counting parallel agents', 'Where the time went, project by project', 'Estimated cost and tokens per model', 'Compared with the previous period'],
           telas: ['tipo=semana', 'tipo=mes&metrica=custo&pomo=parado']
         },
         historico: {
-          titulo: 'Cada sessão e cada commit, no lugar certo.',
+          titulo: 'Every session and every commit, in one place.',
           sub: '',
-          lista: ['Sessões do Claude Code e do Codex com título, projeto e branch', 'Seus commits em todos os repositórios', 'Worktrees somam no mesmo projeto', 'Histórico guardado mesmo depois que as transcrições são apagadas'],
+          lista: ['Claude Code and Codex sessions with title, project and branch', 'Your commits across all your repositories', 'Worktrees count toward their main project', 'History kept even after transcripts are deleted'],
           telas: ['tipo=semana&aba=sessoes&pomo=parado', 'tipo=semana&aba=commits&pomo=parado']
         },
         foco: {
-          titulo: 'Pomodoro e tarefas junto do seu código.',
+          titulo: 'Pomodoro and tasks next to your code.',
           sub: '',
-          lista: ['Pomodoro no painel e na barra de status do Orca', 'Notificação no fim de cada foco e pausa', 'Lista de tarefas que entra no relatório', 'Tempo de foco hora a hora, ao lado dos agentes'],
-          telas: ['tipo=dia&aba=tarefas&pomo=foco', 'tipo=dia&pomo=pausa&metrica=focoMin']
+          lista: ['Pomodoro in the panel and in Orca’s status bar', 'A notification at the end of each focus and break', 'A to-do list that feeds the report', 'In English, Português, Español and 中文'],
+          telas: ['tipo=dia&aba=tarefas&pomo=foco', 'lang=pt-BR&tipo=dia&pomo=pausa&metrica=focoMin']
         }
       }
       const modo = modos[new URLSearchParams(location.search).get('modo') || 'capa']
       const texto = document.getElementById('texto')
-      texto.innerHTML = `<div class="marca"><img src="../../media/icon.png" alt="">Painel de Trabalho · plugin do Orca</div><h1>${modo.titulo}</h1>`
+      texto.innerHTML = `<div class="marca"><img src="../../media/icon.png" alt="">Painel de Trabalho · Orca plugin</div><h1>${modo.titulo}</h1>`
       if (modo.sub) texto.insertAdjacentHTML('beforeend', `<p>${modo.sub}</p>`)
       if (modo.lista.length) texto.insertAdjacentHTML('beforeend', `<ul>${modo.lista.map((i) => `<li>${i}</li>`).join('')}</ul>`)
-      texto.insertAdjacentHTML('beforeend', '<span class="selo">100% local · sem rede · sem rastreamento</span>')
+      texto.insertAdjacentHTML('beforeend', '<span class="selo">100% local · no network · no tracking</span>')
       document.getElementById('telas').innerHTML = modo.telas
-        .map((q, i) => `<div class="tela${i === 1 ? ' baixa' : ''}"><iframe src="demo.html?${q}" title="Painel de demonstração"></iframe></div>`)
+        .map((q, i) => `<div class="tela${i === 1 ? ' baixa' : ''}"><iframe src="demo.html?${q.includes('lang=') ? '' : `lang=${new URLSearchParams(location.search).get('lang') || 'en'}&`}${q}" title="Demo panel"></iframe></div>`)
         .join('')
     </script>
   </body>

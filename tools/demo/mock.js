@@ -4,6 +4,7 @@
   const q = new URLSearchParams(location.search)
   const tipo = q.get('tipo') || 'dia'
   const pomo = q.get('pomo') || 'foco'
+  const lang = q.get('lang') || 'en'
   const agora = Date.now()
   const estados = {
     parado: { fase: 'parado', rodando: false, fimEm: null, restanteMs: null, duracaoMs: 0, inicioFase: null, rotulo: '', ciclos: 1, pausaLonga: false },
@@ -14,11 +15,13 @@
     'relatorio.obter': (e) => window.demoRelatorio(e.tipo),
     'pomodoro.obter': () => estados[pomo],
     'pomodoro.acao': () => estados[pomo],
+    'idioma.sincronizar': () => ({ idioma: lang }),
     'tarefas.obter': () => window.demoTarefas(),
     'tarefas.alterar': () => window.demoTarefas()
   }
   window.orca = {
     api: { major: 1, minor: 4 },
+    locale: lang,
     plugin: {
       request: async (nome, entrada) => respostas[nome](entrada || {}),
       on: () => ({ dispose() {} })

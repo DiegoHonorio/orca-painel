@@ -71,6 +71,7 @@
       custo.push(cs)
       const ativo = Math.round(linha.reduce((a, b2) => a + b2, 0) * 0.78)
       serie.push({
+        inicio: b.inicio,
         rotulo: b.rotulo,
         minutosAtivos: ativo,
         custo: Math.round(cs.reduce((a, b2) => a + b2, 0) * 100) / 100,

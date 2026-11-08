@@ -8,6 +8,7 @@ import type { RegistroUso, Sessao } from './coleta/leitor.ts'
 import { listaDePastas } from './coleta/projeto.ts'
 import { calcularPeriodo, montarRelatorio } from './relatorio.ts'
 import type { EstadoPomodoro, Pomodoro, Tarefa, TipoPeriodo } from './protocol.ts'
+import { idiomaDoSistema, resolverIdioma, textos, type Idioma } from './i18n.ts'
 
 type Config = {
   focoMinutos: number
@@ -18,6 +19,7 @@ type Config = {
   pastasCodex: string
   pastasRepos: string
   emailsGit: string
+  idioma: string
 }
 
 const PADRAO: Config = {
@@ -28,7 +30,8 @@ const PADRAO: Config = {
   pastasClaude: '~/.claude',
   pastasCodex: '~/.codex',
   pastasRepos: '~/dev',
-  emailsGit: ''
+  emailsGit: '',
+  idioma: 'auto'
 }
 
 const POMODORO_PARADO: EstadoPomodoro = {
@@ -44,10 +47,14 @@ const POMODORO_PARADO: EstadoPomodoro = {
 }
 
 let relogio: ReturnType<typeof setInterval> | null = null
+const relogiosExtras: ReturnType<typeof setInterval>[] = []
 
 export default function activate(orca: OrcaWorkerApi): void {
   let pomodoro: EstadoPomodoro = { ...POMODORO_PARADO }
   let textoBarra = ''
+  // idioma: o da configuração do plugin, ou o do Orca informado pelo painel, ou o do sistema
+  let idiomaOrca: Idioma | null = null
+  let idioma: Idioma = idiomaDoSistema()
 
   const config = async (): Promise<Config> => {
     try {
@@ -66,6 +73,20 @@ export default function activate(orca: OrcaWorkerApi): void {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const gravar = (chave: string, valor: unknown) => orca.storage.set(chave, valor as any)
 
+  const resolverIdiomaAtual = async (): Promise<Idioma> => {
+    const c = await config()
+    return resolverIdioma(c.idioma) ?? idiomaOrca ?? idiomaDoSistema()
+  }
+
+  const atualizarIdioma = async () => {
+    const novo = await resolverIdiomaAtual()
+    if (novo === idioma) return
+    idioma = novo
+    textoBarra = ''
+    orca.panels.post('idioma.mudou', { idioma })
+    await atualizarBarra()
+  }
+
   const avisar = (title: string, body?: string) =>
     orca.host.call('notifications.show', body ? { title, body } : { title }).catch(() => undefined)
 
@@ -75,13 +96,14 @@ export default function activate(orca: OrcaWorkerApi): void {
     p.rodando && p.fimEm ? Math.max(0, p.fimEm - Date.now()) : (p.restanteMs ?? 0)
 
   const atualizarBarra = async () => {
-    let texto = 'Pomodoro'
+    const tx = textos(idioma)
+    let texto = tx.pomodoro
     let icon: 'play' | 'pause' | 'zap' = 'play'
     let tone: 'neutral' | 'accent' | 'success' | 'warning' = 'neutral'
     if (pomodoro.fase !== 'parado') {
       const min = Math.ceil(restante(pomodoro) / 60_000)
-      const nome = pomodoro.fase === 'foco' ? 'Foco' : pomodoro.pausaLonga ? 'Pausa longa' : 'Pausa'
-      texto = `${nome} · ${min} min${pomodoro.rodando ? '' : ' (pausado)'}`
+      const nome = pomodoro.fase === 'foco' ? tx.foco : pomodoro.pausaLonga ? tx.pausaLonga : tx.pausa
+      texto = `${nome} · ${tx.min(min)}${pomodoro.rodando ? '' : ` (${tx.pausado})`}`
       icon = pomodoro.rodando ? 'pause' : 'play'
       tone = pomodoro.fase === 'foco' ? 'accent' : 'success'
       if (!pomodoro.rodando) tone = 'warning'
@@ -94,7 +116,7 @@ export default function activate(orca: OrcaWorkerApi): void {
         text: texto,
         icon,
         tone,
-        tooltip: pomodoro.rotulo ? `Pomodoro: ${pomodoro.rotulo}` : 'Pomodoro: clique para iniciar ou pausar'
+        tooltip: pomodoro.rotulo ? tx.tooltipRotulo(pomodoro.rotulo) : tx.tooltipParado
       })
       .catch(() => undefined)
   }
@@ -157,10 +179,12 @@ export default function activate(orca: OrcaWorkerApi): void {
       const longa = ciclos >= c.ciclosAtePausaLonga
       pomodoro.ciclos = longa ? 0 : ciclos
       await iniciarFase('pausa', longa)
-      if (natural) void avisar('Foco concluído 🍅', longa ? `Pausa longa de ${c.pausaLongaMinutos} min.` : `Pausa de ${c.pausaMinutos} min.`)
+      const tx = textos(idioma)
+      if (natural) void avisar(tx.focoConcluido, longa ? tx.pausaLongaDe(c.pausaLongaMinutos) : tx.pausaDe(c.pausaMinutos))
     } else if (pomodoro.fase === 'pausa') {
       pomodoro = { ...POMODORO_PARADO, rotulo: pomodoro.rotulo, ciclos: pomodoro.ciclos }
-      if (natural) void avisar('Pausa acabou', 'Hora de voltar ao foco.')
+      const tx = textos(idioma)
+      if (natural) void avisar(tx.pausaAcabou, tx.voltarAoFoco)
     }
     await publicar()
   }
@@ -173,8 +197,24 @@ export default function activate(orca: OrcaWorkerApi): void {
   void (async () => {
     const salvo = await ler<EstadoPomodoro | null>('pomodoroEstado', null)
     if (salvo && salvo.fase) pomodoro = salvo
+    idiomaOrca = resolverIdioma(await ler<string | null>('idiomaOrca', null))
+    idioma = await resolverIdiomaAtual()
     await atualizarBarra()
   })()
+
+  // a configuração de idioma pode mudar a qualquer momento nas Configurações do Orca
+  const relogioIdioma = setInterval(() => void atualizarIdioma().catch(() => undefined), 15_000)
+  relogiosExtras.push(relogioIdioma)
+
+  orca.panels.handle('idioma.sincronizar', async ({ idiomaOrca: tag }) => {
+    const novo = resolverIdioma(tag)
+    if (novo && novo !== idiomaOrca) {
+      idiomaOrca = novo
+      await gravar('idiomaOrca', novo)
+    }
+    await atualizarIdioma()
+    return { idioma }
+  })
 
   orca.commands.register('pomodoro.alternar', async () => {
     if (pomodoro.fase === 'parado') await acao('iniciar')
@@ -269,4 +309,5 @@ export default function activate(orca: OrcaWorkerApi): void {
 
 export function deactivate(): void {
   if (relogio) clearInterval(relogio)
+  for (const r of relogiosExtras) clearInterval(r)
 }

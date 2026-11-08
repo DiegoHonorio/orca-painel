@@ -37,7 +37,7 @@ export type Relatorio = {
     tarefasConcluidas: number
   }
   anterior: { rotulo: string; tokens: number; custo: number; minutosAtivos: number }
-  serie: { rotulo: string; tokens: number; custo: number; minutosAtivos: number; focoMin: number; commits: number }[]
+  serie: { inicio: number; rotulo: string; tokens: number; custo: number; minutosAtivos: number; focoMin: number; commits: number }[]
   /** Barra (hora ou dia) que contém o momento atual, ou -1 se o período já passou. */
   indiceAtual: number
   /** Tempo ativo e custo por projeto em cada barra: os 4 principais e "outros". */
@@ -68,6 +68,7 @@ declare module 'orca' {
       input: { acao: 'iniciar' | 'pausar' | 'continuar' | 'parar' | 'pular'; rotulo?: string }
       output: EstadoPomodoro
     }
+    'idioma.sincronizar': { input: { idiomaOrca: string }; output: { idioma: string } }
     'tarefas.obter': { output: Tarefa[] }
     'tarefas.alterar': {
       input: { acao: 'adicionar' | 'alternar' | 'remover' | 'editar' | 'limparFeitas'; id?: string; texto?: string }
@@ -77,5 +78,6 @@ declare module 'orca' {
   interface PluginPanelEvents {
     'pomodoro.mudou': EstadoPomodoro
     'tarefas.mudou': Tarefa[]
+    'idioma.mudou': { idioma: string }
   }
 }

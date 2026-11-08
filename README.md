@@ -12,7 +12,7 @@ A sidebar panel for [Orca](https://onorca.dev) that shows **what you worked on**
 - **Pomodoro** in the panel and in Orca's status bar, with a desktop notification at the end of each focus and break
 - **To-do list**: tasks you complete show up in the period's report
 
-The interface is in Portuguese (pt-BR) for now.
+Available in **English, Português (Brasil), Español and 中文（简体）**. It follows Orca's language, or you can pick one in the plugin settings.
 
 ## Privacy
 
@@ -45,7 +45,7 @@ Orca asks you to approve it, because it runs its own code (to read the files abo
 
 ## Settings
 
-**Settings → Plugins → Painel de Trabalho**: pomodoro length, the Claude Code, Codex and repository folders, and your commit e-mail addresses (empty means `git config user.email`).
+**Settings → Plugins → Painel de Trabalho**: language, pomodoro length, the Claude Code, Codex and repository folders, and your commit e-mail addresses (empty means `git config user.email`).
 
 ## Development
 
@@ -61,6 +61,7 @@ orca plugin dev watch .     # loads this folder into Orca and reloads on save
 | `src/relatorio.ts` | Aggregation per period |
 | `src/protocol.ts` | Contract between panel and worker |
 | `panel/` | The panel (HTML, CSS and JS, no build step) |
+| `panel/i18n.js`, `src/i18n.ts` | Translations (panel, and status bar and notifications) |
 | `tools/demo/` | Demo page with made-up data, used for the screenshots |
 | `tools/prints.sh` | Regenerates `media/` from the demo page (never from your real data) |
 
@@ -68,7 +69,7 @@ orca plugin dev watch .     # loads this folder into Orca and reloads on save
 
 ## Em português
 
-Painel para o Orca que mostra no que você trabalhou por dia, semana e mês: tempo ativo dos agentes, onde foi o tempo por projeto, tokens e custo estimado do Claude Code e do Codex, sessões, commits, pomodoro e tarefas.
+Painel para o Orca que mostra no que você trabalhou por dia, semana e mês: tempo ativo dos agentes, onde foi o tempo por projeto, tokens e custo estimado do Claude Code e do Codex, sessões, commits, pomodoro e tarefas. Disponível em português, inglês, espanhol e chinês: segue o idioma do Orca ou o que você escolher nas configurações do plugin.
 
 **Privacidade:** tudo fica na sua máquina. O plugin não acessa a rede e não coleta nada. Ele só lê as transcrições do Claude Code e do Codex e roda `git log` em modo só leitura. O cache fica em `~/.cache/orca-painel/`, legível só pelo seu usuário.
 

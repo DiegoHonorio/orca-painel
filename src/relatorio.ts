@@ -107,7 +107,7 @@ function custoDe(r: RegistroUso): number | null {
 export function montarRelatorio(e: Entrada): Relatorio {
   const { periodo: p } = e
   const dentro = (t: number) => t >= p.inicio && t < p.fim
-  const serie = p.baldes.map((b) => ({ rotulo: b.rotulo, tokens: 0, custo: 0, minutosAtivos: 0, focoMin: 0, commits: 0 }))
+  const serie = p.baldes.map((b) => ({ inicio: b.inicio, rotulo: b.rotulo, tokens: 0, custo: 0, minutosAtivos: 0, focoMin: 0, commits: 0 }))
   const projetos = new Map<string, { nome: string; tokens: number; custo: number; ts: number[]; sessoes: Set<string>; commits: number }>()
   const modelos = new Map<string, { nome: string; ferramenta: string; tokens: number; custo: number | null }>()
   const porSessao = new Map<string, { tokens: number; custo: number }>()
@@ -179,7 +179,7 @@ export function montarRelatorio(e: Entrada): Relatorio {
     sessoes.push({
       id: s.id,
       ferramenta: s.f,
-      titulo: s.titulo || '(sem título)',
+      titulo: s.titulo,
       projeto: s.p,
       branch: s.b,
       inicio: ordenados[0] ?? p.inicio,
