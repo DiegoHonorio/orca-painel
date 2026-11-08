@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="fundo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#262b45"/>
+      <stop offset="0.65" stop-color="#15171c"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#fundo)"/>
+  <rect x="1.5" y="1.5" width="253" height="253" rx="54.5" fill="none" stroke="#3a4066" stroke-width="3"/>
+  <!-- anel de projetos: 4 segmentos -->
+  <g fill="none" stroke-width="22" transform="rotate(-90 128 128)">
+    <circle cx="128" cy="128" r="70" stroke="#7c8cff" stroke-dasharray="168 440" stroke-dashoffset="0"/>
+    <circle cx="128" cy="128" r="70" stroke="#4cc3c3" stroke-dasharray="108 440" stroke-dashoffset="-176"/>
+    <circle cx="128" cy="128" r="70" stroke="#e0a458" stroke-dasharray="70 440" stroke-dashoffset="-292"/>
+    <circle cx="128" cy="128" r="70" stroke="#d17ad6" stroke-dasharray="54 440" stroke-dashoffset="-370"/>
+  </g>
+  <!-- ponteiro de relógio no centro -->
+  <circle cx="128" cy="128" r="34" fill="#1b1e25"/>
+  <path d="M128 106 V128 L143 138" fill="none" stroke="#e6e8ec" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

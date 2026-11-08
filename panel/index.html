@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Painel de Trabalho</title>
+    <link rel="stylesheet" href="painel.css" />
+  </head>
+  <body>
+    <section class="pomo" id="pomodoro" data-fase="parado">
+      <div id="pomoAnel" class="pomo-anel"></div>
+      <div class="pomo-info">
+        <span class="fase" id="pomoFase"><i></i><span>Pomodoro</span></span>
+        <input id="pomoRotulo" class="rotulo" type="text" maxlength="120" placeholder="No que você vai focar?" aria-label="No que você vai focar" />
+        <div class="bts">
+          <button id="pomoPrincipal" class="bt p">Iniciar foco</button>
+          <button id="pomoPular" class="bt" hidden>Pular</button>
+          <button id="pomoParar" class="bt ic" title="Parar" aria-label="Parar" hidden>■</button>
+        </div>
+      </div>
+    </section>
+
+    <nav class="seg">
+      <div class="s" role="tablist" aria-label="Período">
+        <button data-tipo="dia" class="on">Dia</button>
+        <button data-tipo="semana">Semana</button>
+        <button data-tipo="mes">Mês</button>
+      </div>
+      <div class="nav">
+        <button id="anterior" class="ic" aria-label="Período anterior">‹</button>
+        <span id="rotuloPeriodo" class="num">Hoje</span>
+        <button id="proximo" class="ic" aria-label="Próximo período" disabled>›</button>
+        <button id="atualizar" class="ic" aria-label="Atualizar" title="Atualizar">↻</button>
+      </div>
+    </nav>
+
+    <nav class="abas" role="tablist">
+      <button data-aba="resumo" class="on">Resumo</button>
+      <button data-aba="sessoes">Sessões <span id="nSessoes"></span></button>
+      <button data-aba="commits">Commits <span id="nCommits"></span></button>
+      <button data-aba="tarefas">Tarefas <span id="nTarefas"></span></button>
+    </nav>
+
+    <main>
+      <div id="status" class="status" hidden></div>
+
+      <section data-painel="resumo">
+        <div class="kpis" id="kpis"></div>
+
+        <div class="bloco">
+          <div class="cab"><h3>Onde foi o tempo</h3><small>tempo ativo</small></div>
+          <div class="donut"><div id="donut"></div><div class="leg" id="legenda"></div></div>
+        </div>
+
+        <div class="bloco">
+          <div class="cab">
+            <h3 id="tituloBarras">Por hora</h3>
+            <select id="metrica" class="seletor" aria-label="Métrica do gráfico">
+              <option value="minutos">Tempo ativo</option>
+              <option value="custo">Custo estimado</option>
+              <option value="focoMin">Foco</option>
+              <option value="commits">Commits</option>
+              <option value="tokens">Tokens</option>
+            </select>
+          </div>
+          <div id="barras"></div>
+          <div class="dica num" id="dica"></div>
+        </div>
+
+        <div class="bloco">
+          <div class="cab"><h3>Últimas sessões</h3><button class="link" id="verSessoes">ver todas ›</button></div>
+          <div class="lista" id="ultimasSessoes"></div>
+        </div>
+
+        <div class="bloco">
+          <div class="cab"><h3>Modelos</h3><small id="tokensTotal" class="num"></small></div>
+          <div class="lista" id="modelos"></div>
+        </div>
+
+        <p class="nota">Custo estimado com os preços da API; em plano de assinatura você não paga por token. Tempo ativo conta os períodos com atividade dos agentes (pausas acima de 10 min não contam) e não soma duas vezes agentes em paralelo.</p>
+      </section>
+
+      <section data-painel="sessoes" hidden><div class="lista" id="sessoes"></div></section>
+      <section data-painel="commits" hidden><div class="lista" id="commits"></div></section>
+
+      <section data-painel="tarefas" hidden>
+        <form id="novaTarefa" class="nova-tarefa">
+          <input id="textoTarefa" class="campo" type="text" maxlength="300" placeholder="Nova tarefa…" autocomplete="off" />
+          <button class="bt p" type="submit">Adicionar</button>
+        </form>
+        <ul id="tarefas" class="tarefas"></ul>
+        <button id="limparFeitas" class="link" hidden>Limpar concluídas</button>
+        <div class="bloco" id="concluidasPeriodo"></div>
+      </section>
+    </main>
+
+    <script src="painel.js"></script>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stablyai/orca/main/docs/schemas/plugins/orca-plugin.v2.schema.json",
+  "manifestVersion": 2,
+  "id": "painel-trabalho",
+  "name": "Painel de Trabalho",
+  "version": "0.2.0",
+  "description": "See what you worked on by day, week and month: Claude Code and Codex time, tokens and estimated cost, your commits, a pomodoro timer and a to-do list. Everything stays on your machine. Interface in Portuguese (pt-BR).",
+  "license": "MIT",
+  "author": {
+    "name": "Diego Honorio Santos"
+  },
+  "repository": "https://github.com/DiegoHonorio/orca-painel",
+  "homepage": "https://github.com/DiegoHonorio/orca-painel",
+  "icon": "media/icon.png",
+  "cover": {
+    "path": "media/cover.png",
+    "alt": "The panel in Orca: weekly summary with active time, focus, cost, commits, time per project and bars per day, next to the session list."
+  },
+  "screenshots": [
+    {
+      "path": "media/screenshot-resumo.png",
+      "alt": "Weekly summary with KPIs and sparklines, time per project, and a monthly view of estimated cost per day.",
+      "caption": "Day, week and month at a glance",
+      "theme": "dark"
+    },
+    {
+      "path": "media/screenshot-historico.png",
+      "alt": "List of Claude Code and Codex sessions with project, branch, time and cost, next to the list of commits grouped by day.",
+      "caption": "Every session and commit",
+      "theme": "dark"
+    },
+    {
+      "path": "media/screenshot-foco.png",
+      "alt": "Pomodoro running with the to-do list, next to the daily summary showing focus minutes per hour.",
+      "caption": "Pomodoro and tasks",
+      "theme": "dark"
+    }
+  ],
+  "engines": {
+    "orca": ">=1.4.248"
+  },
+  "execution": "trusted-worker",
+  "pluginApi": 1,
+  "main": "src/worker.ts",
+  "contributes": {
+    "panels": [
+      {
+        "id": "painel",
+        "title": "Painel de Trabalho",
+        "icon": "bar-chart-3",
+        "entry": "panel/index.html",
+        "ui": "html"
+      }
+    ],
+    "commands": [
+      {
+        "id": "pomodoro.alternar",
+        "title": "Pomodoro: iniciar / pausar"
+      },
+      {
+        "id": "pomodoro.parar",
+        "title": "Pomodoro: parar"
+      }
+    ],
+    "statusBarItems": [
+      {
+        "id": "pomodoro",
+        "text": "Pomodoro",
+        "icon": "play",
+        "tooltip": "Pomodoro: clique para iniciar ou pausar",
+        "command": "pomodoro.alternar"
+      }
+    ],
+    "settings": [
+      {
+        "key": "focoMinutos",
+        "title": "Pomodoro: minutos de foco",
+        "type": "integer",
+        "default": 25,
+        "minimum": 1,
+        "maximum": 180
+      },
+      {
+        "key": "pausaMinutos",
+        "title": "Pomodoro: minutos de pausa curta",
+        "type": "integer",
+        "default": 5,
+        "minimum": 1,
+        "maximum": 60
+      },
+      {
+        "key": "pausaLongaMinutos",
+        "title": "Pomodoro: minutos de pausa longa",
+        "type": "integer",
+        "default": 15,
+        "minimum": 1,
+        "maximum": 120
+      },
+      {
+        "key": "ciclosAtePausaLonga",
+        "title": "Pomodoro: focos até a pausa longa",
+        "type": "integer",
+        "default": 4,
+        "minimum": 1,
+        "maximum": 12
+      },
+      {
+        "key": "pastasClaude",
+        "title": "Pastas de dados do Claude Code (separadas por vírgula)",
+        "type": "string",
+        "default": "~/.claude"
+      },
+      {
+        "key": "pastasCodex",
+        "title": "Pastas de dados do Codex (separadas por vírgula)",
+        "type": "string",
+        "default": "~/.codex"
+      },
+      {
+        "key": "pastasRepos",
+        "title": "Pastas onde procurar repositórios git (separadas por vírgula)",
+        "type": "string",
+        "default": "~/dev"
+      },
+      {
+        "key": "emailsGit",
+        "title": "E-mails de autor dos seus commits (vazio = git config user.email)",
+        "type": "string",
+        "default": ""
+      }
+    ]
+  },
+  "capabilities": [
+    {
+      "kind": "storage:own"
+    },
+    {
+      "kind": "settings:own"
+    },
+    {
+      "kind": "notifications:show"
+    }
+  ]
+}
