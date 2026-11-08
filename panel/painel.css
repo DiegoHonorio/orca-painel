@@ -139,6 +139,69 @@ section[hidden] { display: none; }
 .tarefas .ic { opacity: 0; }
 .tarefas li:hover .ic, .tarefas .ic:focus-visible { opacity: 1; }
 
+/* Menu de topo e faixa de rede/bateria */
+.menu { display: grid; grid-template-columns: 1fr 1fr; margin: -14px -14px 0; background: var(--card); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 2; }
+.menu button { border: 0; background: transparent; padding: 10px 0 9px; font-weight: 500; color: var(--mut); display: flex; gap: 7px; align-items: center; justify-content: center; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.menu button svg { width: 14px; height: 14px; }
+.menu button:hover { color: var(--fg); }
+.menu button.on { color: var(--fg); border-bottom-color: var(--acc); background: linear-gradient(180deg, transparent, #232843); }
+.menu .vivo { width: 6px; height: 6px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px rgba(76, 195, 138, 0.15); }
+.faixa { display: flex; justify-content: space-between; gap: 10px; margin: -14px -14px 0; padding: 6px 14px; font-size: 11px; color: var(--mut); background: #181b21; border-bottom: 1px solid var(--line); }
+.faixa > span { display: inline-flex; gap: 5px; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.faixa .d { color: #5cc8e0; }
+.faixa .u { color: #e879a6; }
+.bat { width: 18px; height: 9px; border: 1px solid var(--mut); border-radius: 2px; position: relative; padding: 1px; flex: none; }
+.bat::after { content: ''; position: absolute; right: -3px; top: 2px; width: 2px; height: 3px; background: var(--mut); border-radius: 0 1px 1px 0; }
+.bat i { display: block; height: 100%; background: var(--ok); border-radius: 1px; }
+.bat.baixa i { background: var(--bad); }
+.visao { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; min-width: 0; }
+.visao[hidden] { display: none; }
+
+/* Sistema */
+.sis-estado { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--mut); gap: 8px; }
+.sis-estado .bt { font-size: 11px; padding: 2px 8px; }
+.medidores { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
+.med { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 10px 8px; display: grid; gap: 6px; min-width: 0; }
+.med .top { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; }
+.med .top small { color: var(--mut); font-size: 11px; white-space: nowrap; }
+.med .val { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.med .val em { font-style: normal; font-size: 12px; color: var(--mut); font-weight: 400; margin-left: 3px; }
+.med .sub { font-size: 11px; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.spark { width: 100%; height: 30px; display: block; }
+.nucleos { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 2px; height: 22px; align-items: end; }
+.nucleos i { display: block; background: var(--acc); border-radius: 2px; min-height: 2px; }
+.barra { height: 10px; border-radius: 5px; background: #2b3040; overflow: hidden; display: flex; }
+.barra i { display: block; height: 100%; }
+.legenda { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11px; color: var(--mut); margin-top: 8px; }
+.legenda span::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; background: var(--c); vertical-align: -1px; }
+.alt { display: flex; background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 1px; }
+.alt button { border: 0; background: transparent; font-size: 11px; padding: 1px 8px; border-radius: 5px; color: var(--mut); }
+.alt button.on { background: #2b3040; color: var(--fg); }
+.procs, .portas { display: grid; gap: 2px; grid-template-columns: minmax(0, 1fr); }
+.proc, .procs .th { display: grid; grid-template-columns: 16px minmax(0, 1fr) 52px 64px; gap: 8px; align-items: center; padding: 6px 8px; border-radius: 8px; position: relative; isolation: isolate; }
+.procs .th { padding: 0 8px 2px; font-size: 10px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.06em; }
+.procs .th span:nth-child(n + 3), .proc .c, .proc .m { text-align: right; }
+.proc:hover { background: var(--card); }
+.proc .r { color: var(--dim); font-size: 11px; }
+.proc .nome { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.proc .nome small, .porta .proj small { color: var(--dim); margin-left: 4px; font-size: 11px; }
+.proc .c { font-size: 12px; }
+.proc .m { font-size: 12px; color: var(--mut); }
+.proc .fundo { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 8px; background: rgba(124, 140, 255, 0.09); z-index: -1; }
+.ia { background: linear-gradient(160deg, #20243a, var(--card) 60%); border: 1px solid #323858; border-radius: 12px; padding: 10px 12px; display: grid; gap: 6px; }
+.ia .linha { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; }
+.ia .linha span:last-child { color: var(--mut); white-space: nowrap; }
+.porta { display: grid; grid-template-columns: 54px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 5px 8px; border-radius: 8px; font-size: 12px; }
+.porta:hover { background: var(--card); }
+.porta b { color: var(--acc); font-weight: 500; }
+.porta .proj { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.porta .tempo { color: var(--dim); font-size: 11px; white-space: nowrap; }
+.porta.velha .tempo { color: var(--warn); }
+.porta .rede { font-size: 10px; padding: 0 5px; border-radius: 4px; background: rgba(224, 164, 88, 0.15); color: var(--warn); margin-left: 6px; }
+.disco { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 12px; padding: 3px 0; }
+.disco .barra { height: 6px; }
+.disco span:last-child { color: var(--mut); font-size: 11px; white-space: nowrap; }
+
 @media (prefers-reduced-motion: no-preference) {
   .anel-progresso { transition: stroke-dasharray 0.9s linear; }
 }

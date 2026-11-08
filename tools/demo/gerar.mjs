@@ -9,6 +9,7 @@ const painel = readFileSync(join(aqui, '../../panel/index.html'), 'utf8')
 const demo = painel
   .replace('href="painel.css"', 'href="../../panel/painel.css"')
   .replace('<script src="painel.js"></script>', '<script src="dados.js"></script>\n    <script src="mock.js"></script>\n    <script src="../../panel/painel.js"></script>')
+  .replace('<script src="sistema.js"></script>', '<script src="../../panel/sistema.js"></script>')
   .replace('<script src="i18n.js"></script>', '<script src="../../panel/i18n.js"></script>')
   .replace('<title>Painel de Trabalho</title>', '<title>Painel de Trabalho (demonstração)</title>')
 if (demo === painel) throw new Error('panel/index.html mudou: ajuste gerar.mjs')

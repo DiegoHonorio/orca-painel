@@ -8,6 +8,10 @@ import type { RegistroUso, Sessao } from './coleta/leitor.ts'
 import { listaDePastas } from './coleta/projeto.ts'
 import { calcularPeriodo, montarRelatorio } from './relatorio.ts'
 import type { EstadoPomodoro, Pomodoro, Tarefa, TipoPeriodo } from './protocol.ts'
+import { lerFaixa } from './sistema/faixa.ts'
+import { lerDiscos, lerMaquina } from './sistema/maquina.ts'
+import { lerPortas } from './sistema/portas.ts'
+import { lerProcessos } from './sistema/processos.ts'
 import { idiomaDoSistema, resolverIdioma, textos, type Idioma } from './i18n.ts'
 
 type Config = {
@@ -20,6 +24,7 @@ type Config = {
   pastasRepos: string
   emailsGit: string
   idioma: string
+  sistemaIntervalo: number
 }
 
 const PADRAO: Config = {
@@ -31,7 +36,8 @@ const PADRAO: Config = {
   pastasCodex: '~/.codex',
   pastasRepos: '~/dev',
   emailsGit: '',
-  idioma: 'auto'
+  idioma: 'auto',
+  sistemaIntervalo: 3
 }
 
 const POMODORO_PARADO: EstadoPomodoro = {
@@ -301,6 +307,22 @@ export default function activate(orca: OrcaWorkerApi): void {
     ])
     return montarRelatorio({ periodo, usos, sessoes, commits, pomodoros, tarefas: [...tarefas, ...arquivadas], anterior: { usos, sessoes, periodo: anterior } })
   })
+
+  // ---------- Sistema ----------
+  // Só lê quando o painel pede: com a aba Sistema fechada (ou o painel escondido) não há leitura nenhuma.
+
+  orca.panels.handle('sistema.obter', async ({ portas, discos }) => {
+    const c = await config()
+    const [maquina, processos, listaPortas] = await Promise.all([lerMaquina(), lerProcessos(), portas ? lerPortas() : undefined])
+    return {
+      ...maquina,
+      processos,
+      ...(portas ? { portas: listaPortas } : {}),
+      ...(discos ? { discos: lerDiscos() } : {}),
+      intervaloS: Math.min(10, Math.max(2, Math.round(Number(c.sistemaIntervalo) || 3)))
+    }
+  })
+  orca.panels.handle('sistema.faixa', async () => lerFaixa())
 
   // aquece o cache em segundo plano para o primeiro relatório abrir rápido
   setTimeout(() => void config().then(coletar).catch((e) => orca.log(`coleta falhou: ${e}`)), 2000)

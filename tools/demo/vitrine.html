@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>Vitrine do Painel de Trabalho</title>
     <!-- Monta a capa e os prints do catálogo (1600×1000) com o painel de demonstração em iframes.
-         ?modo=capa|resumo|historico|foco -->
+         ?modo=capa|resumo|historico|foco|sistema -->
     <style>
       @font-face { font-family: 'Geist'; src: url('../../panel/fonts/geist-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; }
       @font-face { font-family: 'Geist Mono'; src: url('../../panel/fonts/geist-mono-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; }
@@ -62,6 +62,12 @@
           sub: '',
           lista: ['Pomodoro in the panel and in Orca’s status bar', 'A notification at the end of each focus and break', 'A to-do list that feeds the report', 'In English, Português, Español and 中文'],
           telas: ['tipo=dia&aba=tarefas&pomo=foco', 'lang=pt-BR&tipo=dia&pomo=pausa&metrica=focoMin']
+        },
+        sistema: {
+          titulo: 'A light system view, only when you look.',
+          sub: '',
+          lista: ['CPU, memory and the top 5 programs, htop style', 'Which AI agents are running and what they use', 'Open dev ports and the project behind each one', 'Network and battery at the top of every tab', 'Reads only while the tab is open'],
+          telas: ['visao=sistema&pomo=parado', 'lang=pt-BR&visao=sistema&pomo=parado']
         }
       }
       const modo = modos[new URLSearchParams(location.search).get('modo') || 'capa']

@@ -2,10 +2,9 @@
   "$schema": "https://raw.githubusercontent.com/stablyai/orca/main/docs/schemas/plugins/orca-plugin.v2.schema.json",
   "manifestVersion": 2,
   "id": "painel-trabalho",
-  "publisher": "diegohonorio",
   "name": "Painel de Trabalho",
-  "version": "0.3.0",
-  "description": "See what you worked on by day, week and month: Claude Code and Codex active time, tokens and estimated cost, your commits, a pomodoro timer and a to-do list. Everything stays on your machine. English, Português, Español, 中文.",
+  "version": "0.4.0",
+  "description": "See what you worked on by day, week and month (Claude Code and Codex time, tokens, estimated cost, commits, pomodoro, to-dos), plus a light system view: CPU, memory, top programs, open ports, network and battery. Everything stays on your machine. English, Português, Español, 中文.",
   "license": "MIT",
   "author": {
     "name": "Diego Honorio Santos"
@@ -34,6 +33,12 @@
       "path": "media/screenshot-foco.png",
       "alt": "Pomodoro running with the to-do list, next to the daily summary showing focus minutes per hour.",
       "caption": "Pomodoro and tasks",
+      "theme": "dark"
+    },
+    {
+      "path": "media/screenshot-sistema.png",
+      "alt": "System tab: CPU, memory, top 5 programs, AI agents, open dev ports, network and battery",
+      "caption": "System view",
       "theme": "dark"
     }
   ],
@@ -92,6 +97,14 @@
           "Español",
           "中文（简体）"
         ]
+      },
+      {
+        "key": "sistemaIntervalo",
+        "title": "System tab: refresh every N seconds (only while the tab is open)",
+        "type": "integer",
+        "default": 3,
+        "minimum": 2,
+        "maximum": 10
       },
       {
         "key": "focoMinutos",

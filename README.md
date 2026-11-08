@@ -12,6 +12,16 @@ A sidebar panel for [Orca](https://onorca.dev) that shows **what you worked on**
 - **Pomodoro** in the panel and in Orca's status bar, with a desktop notification at the end of each focus and break
 - **To-do list**: tasks you complete show up in the period's report
 
+A second tab, **System**, is a light htop for when you need it:
+
+- **CPU** (total and per core) and **memory** (apps, buffers, cache, free, swap), with a short live chart
+- **Top 5 programs** by CPU or memory, processes of the same program added together
+- **AI agents running now** (Claude Code, Codex and others) and what they use
+- **Open ports** of your own programs, with the project each one runs from, and a warning when one accepts connections from the network
+- **Disk** space, plus **network** speed and **battery** in a strip shown on every tab
+
+It only reads while the panel is visible: CPU, memory and programs only while the System tab is open (every 3 s, configurable, with a pause button), ports every 10 s, disk every 60 s. Nothing is stored. Linux and macOS; on Windows the program and port lists aren't available yet.
+
 Available in **English, Português (Brasil), Español and 中文（简体）**. It follows Orca's language, or you can pick one in the plugin settings.
 
 ## Privacy
@@ -23,6 +33,7 @@ Everything stays on your machine. The plugin has **no network access, no analyti
 | Claude Code transcripts | `~/.claude/projects/**/*.jsonl` (read-only) |
 | Codex sessions | `~/.codex/sessions/**/*.jsonl` (read-only) |
 | Your commits | `git log` in the repositories under the folders you configure (default `~/dev`), read-only |
+| System tab (only while visible) | CPU, memory, disk, network and battery counters; the name, CPU and memory of running programs; the listening ports of your own programs. Linux: `/proc` and `/sys`; macOS: `ps`, `lsof`, `netstat`, `pmset`. Nothing is kept |
 
 | What it writes | Where |
 | --- | --- |
@@ -61,6 +72,8 @@ orca plugin dev watch .     # loads this folder into Orca and reloads on save
 | `src/relatorio.ts` | Aggregation per period |
 | `src/protocol.ts` | Contract between panel and worker |
 | `panel/` | The panel (HTML, CSS and JS, no build step) |
+| `src/sistema/` | System tab readers (CPU, memory, programs, ports, network, battery) |
+| `panel/sistema.js` | System tab and network/battery strip |
 | `panel/i18n.js`, `src/i18n.ts` | Translations (panel, and status bar and notifications) |
 | `tools/demo/` | Demo page with made-up data, used for the screenshots |
 | `tools/prints.sh` | Regenerates `media/` from the demo page (never from your real data) |
@@ -69,7 +82,7 @@ orca plugin dev watch .     # loads this folder into Orca and reloads on save
 
 ## Em português
 
-Painel para o Orca que mostra no que você trabalhou por dia, semana e mês: tempo ativo dos agentes, onde foi o tempo por projeto, tokens e custo estimado do Claude Code e do Codex, sessões, commits, pomodoro e tarefas. Disponível em português, inglês, espanhol e chinês: segue o idioma do Orca ou o que você escolher nas configurações do plugin.
+Painel para o Orca que mostra no que você trabalhou por dia, semana e mês: tempo ativo dos agentes, onde foi o tempo por projeto, tokens e custo estimado do Claude Code e do Codex, sessões, commits, pomodoro e tarefas. A aba **Sistema** é um htop leve: CPU, memória, top 5 programas, agentes de IA rodando, portas abertas pelos seus programas, disco, rede e bateria; só lê com o painel visível. Disponível em português, inglês, espanhol e chinês: segue o idioma do Orca ou o que você escolher nas configurações do plugin.
 
 **Privacidade:** tudo fica na sua máquina. O plugin não acessa a rede e não coleta nada. Ele só lê as transcrições do Claude Code e do Codex e roda `git log` em modo só leitura. O cache fica em `~/.cache/orca-painel/`, legível só pelo seu usuário.
 

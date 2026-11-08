@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="painel.css" />
   </head>
   <body>
+    <nav class="menu" role="tablist">
+      <button data-visao="trabalho" class="on" role="tab"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2.5" width="12" height="11" rx="2"/><path d="M5 10V8M8 10V6M11 10V7"/></svg><span data-i18n="trabalho">Work</span></button>
+      <button data-visao="sistema" role="tab"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="4" width="8" height="8" rx="1.5"/><path d="M6 1.5v2M10 1.5v2M6 12.5v2M10 12.5v2M1.5 6h2M1.5 10h2M12.5 6h2M12.5 10h2"/></svg><span data-i18n="sistema">System</span><i class="vivo" hidden></i></button>
+    </nav>
+    <div class="faixa num" id="faixa" hidden></div>
+
+    <div class="visao" id="visaoTrabalho">
     <section class="pomo" id="pomodoro" data-fase="parado">
       <div id="pomoAnel" class="pomo-anel"></div>
       <div class="pomo-info">
@@ -93,8 +100,46 @@
         <div class="bloco" id="concluidasPeriodo"></div>
       </section>
     </main>
+    </div>
+
+    <div class="visao" id="visaoSistema" hidden>
+      <div class="sis-estado">
+        <span id="sisEstado" class="num"></span>
+        <button id="sisPausar" class="bt"></button>
+      </div>
+      <div id="sisErro" class="status erro" hidden></div>
+      <div class="medidores">
+        <div class="med" id="medCpu"></div>
+        <div class="med" id="medMem"></div>
+      </div>
+      <div class="bloco">
+        <div class="cab"><h3 data-i18n="memoria"></h3><small id="swap" class="num"></small></div>
+        <div id="memBarra"></div>
+      </div>
+      <div class="bloco">
+        <div class="cab">
+          <h3 data-i18n="top5"></h3>
+          <div class="alt" role="group">
+            <button data-ordem="cpu" class="on">CPU</button>
+            <button data-ordem="mem" data-i18n="memoria"></button>
+          </div>
+        </div>
+        <div id="procs" class="procs"></div>
+      </div>
+      <div class="ia" id="agentes" hidden></div>
+      <div class="bloco">
+        <div class="cab"><h3 data-i18n="portasAbertas"></h3><small data-i18n="soSuasPortas"></small></div>
+        <div id="portas" class="portas"></div>
+      </div>
+      <div class="bloco">
+        <div class="cab"><h3 data-i18n="disco"></h3></div>
+        <div id="discos"></div>
+      </div>
+      <p class="nota num" id="sisNota"></p>
+    </div>
 
     <script src="i18n.js"></script>
     <script src="painel.js"></script>
+    <script src="sistema.js"></script>
   </body>
 </html>

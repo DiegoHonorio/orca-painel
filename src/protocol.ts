@@ -60,6 +60,28 @@ export type Relatorio = {
   tarefasConcluidas: { texto: string; feitaEm: number }[]
 }
 
+export type SistemaMaquina = {
+  cpu: { total: number; nucleos: number[] }
+  /** Bytes. "apps" é o que os programas ocupam; cache e buffers o sistema libera quando precisa. */
+  mem: { total: number; disponivel: number; apps: number; buffers: number; cache: number; livre: number; swapTotal: number; swapUsado: number }
+  carga: number[] | null
+  ligadoHaS: number
+}
+export type SistemaProcesso = { nome: string; processos: number; cpu: number; mem: number; agente: boolean }
+export type SistemaPorta = { porta: number; programa: string; projeto: string | null; desde: number | null; publica: boolean }
+export type SistemaDisco = { nome: string; total: number; usado: number }
+export type SistemaFaixa = {
+  rede: { rx: number; tx: number } | null
+  bateria: { pct: number; carregando: boolean; cheia: boolean; minutos: number | null } | null
+}
+export type Sistema = SistemaMaquina & {
+  /** null quando o sistema operacional não é suportado. */
+  processos: SistemaProcesso[] | null
+  portas?: SistemaPorta[] | null
+  discos?: SistemaDisco[]
+  intervaloS: number
+}
+
 declare module 'orca' {
   interface PluginRequests {
     'relatorio.obter': { input: { tipo: TipoPeriodo; deslocamento: number }; output: Relatorio }
@@ -69,6 +91,8 @@ declare module 'orca' {
       output: EstadoPomodoro
     }
     'idioma.sincronizar': { input: { idiomaOrca: string }; output: { idioma: string } }
+    'sistema.obter': { input: { portas: boolean; discos: boolean }; output: Sistema }
+    'sistema.faixa': { output: SistemaFaixa }
     'tarefas.obter': { output: Tarefa[] }
     'tarefas.alterar': {
       input: { acao: 'adicionar' | 'alternar' | 'remover' | 'editar' | 'limparFeitas'; id?: string; texto?: string }

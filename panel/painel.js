@@ -595,6 +595,7 @@
     desenharPomodoro()
     desenharTarefas()
     desenharRelatorio()
+    window.sistemaPainel?.redesenhar()
   }
 
   // ---------- início ----------
@@ -637,10 +638,11 @@
   carregarRelatorio()
 
   // atualiza sozinho a cada 2 min enquanto o painel estiver visível
+  const trabalhoVisivel = () => !document.hidden && !document.getElementById('visaoTrabalho').hidden
   setInterval(() => {
-    if (!document.hidden) carregarRelatorio(true)
+    if (trabalhoVisivel()) carregarRelatorio(true)
   }, 120000)
   document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) carregarRelatorio(true)
+    if (trabalhoVisivel()) carregarRelatorio(true)
   })
 })()

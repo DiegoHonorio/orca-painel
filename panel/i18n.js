@@ -30,7 +30,18 @@
     nenhumaTarefa: 'Nenhuma tarefa. Adicione o que precisa fazer.', concluida: 'Concluída', removerTarefa: 'Remover tarefa', remover: 'Remover',
     lendo: 'Lendo seu histórico… a primeira vez pode levar alguns segundos.', atualizando: 'Atualizando…',
     erroRelatorio: (e) => `Não consegui montar o relatório: ${e}`, erroPomodoro: (e) => `Pomodoro: ${e}`, erroTarefas: (e) => `Tarefas: ${e}`,
-    apiIndisponivel: 'A API do Orca não está disponível neste painel.'
+    apiIndisponivel: 'A API do Orca não está disponível neste painel.',
+    trabalho: 'Trabalho', sistema: 'Sistema', memoria: 'Memória', top5: 'Top 5', portasAbertas: 'Portas abertas',
+    soSuasPortas: 'só dos seus programas', disco: 'Disco', nNucleos: (n) => `${n} núcleos`, memLivre: 'Memória livre',
+    emUso: (v, p) => `em uso ${v} · ${p}%`, emUsoCurto: 'em uso', apps: 'apps', buffers: 'buffers', cache: 'cache', livre: 'livre',
+    swap: (u, t) => `swap ${u} / ${t}`, programa: 'Programa', memCurto: 'Mem', nProc: (n) => `${n} proc.`,
+    agentesIA: 'Agentes de IA agora', nenhumaPorta: 'Nenhuma porta aberta pelos seus programas.',
+    naoSuportado: 'Ainda não disponível neste sistema operacional.', portaRede: 'rede',
+    portaRedeTitulo: 'Aceita conexões de outras máquinas da rede, não só desta.',
+    atualizaCada: (n) => `atualiza a cada ${n} s`, sisPausado: '⏸ pausado', ligadoHa: (d) => `ligado há ${d}`,
+    carga: (v) => `carga ${v}`, soComAbaAberta: 'lê só com esta aba aberta', rede: 'Rede', bateria: 'Bateria',
+    restantes: (d) => `${d} restantes`, ateCarregar: (d) => `${d} para carregar`, carregando: 'carregando', carregada: 'carregada',
+    lendoSistema: 'Lendo…', erroSistema: (e) => `Não consegui ler o sistema: ${e}`
   }
 
   const en = {
@@ -60,7 +71,18 @@
     nenhumaTarefa: 'No tasks yet. Add what you need to do.', concluida: 'Done', removerTarefa: 'Remove task', remover: 'Remove',
     lendo: 'Reading your history… the first time can take a few seconds.', atualizando: 'Refreshing…',
     erroRelatorio: (e) => `Couldn’t build the report: ${e}`, erroPomodoro: (e) => `Pomodoro: ${e}`, erroTarefas: (e) => `Tasks: ${e}`,
-    apiIndisponivel: 'The Orca API isn’t available in this panel.'
+    apiIndisponivel: 'The Orca API isn’t available in this panel.',
+    trabalho: 'Work', sistema: 'System', memoria: 'Memory', top5: 'Top 5', portasAbertas: 'Open ports',
+    soSuasPortas: 'your programs only', disco: 'Disk', nNucleos: (n) => `${n} cores`, memLivre: 'Free memory',
+    emUso: (v, p) => `in use ${v} · ${p}%`, emUsoCurto: 'in use', apps: 'apps', buffers: 'buffers', cache: 'cache', livre: 'free',
+    swap: (u, t) => `swap ${u} / ${t}`, programa: 'Program', memCurto: 'Mem', nProc: (n) => `${n} proc.`,
+    agentesIA: 'AI agents now', nenhumaPorta: 'None of your programs has a port open.',
+    naoSuportado: 'Not available on this operating system yet.', portaRede: 'network',
+    portaRedeTitulo: 'Accepts connections from other machines on the network, not just this one.',
+    atualizaCada: (n) => `refreshes every ${n}s`, sisPausado: '⏸ paused', ligadoHa: (d) => `up ${d}`,
+    carga: (v) => `load ${v}`, soComAbaAberta: 'reads only while this tab is open', rede: 'Network', bateria: 'Battery',
+    restantes: (d) => `${d} left`, ateCarregar: (d) => `${d} to full`, carregando: 'charging', carregada: 'charged',
+    lendoSistema: 'Reading…', erroSistema: (e) => `Couldn’t read the system: ${e}`
   }
 
   const es = {
@@ -90,7 +112,18 @@
     nenhumaTarefa: 'No hay tareas. Agrega lo que necesitas hacer.', concluida: 'Completada', removerTarefa: 'Quitar tarea', remover: 'Quitar',
     lendo: 'Leyendo tu historial… la primera vez puede tardar unos segundos.', atualizando: 'Actualizando…',
     erroRelatorio: (e) => `No pude armar el informe: ${e}`, erroPomodoro: (e) => `Pomodoro: ${e}`, erroTarefas: (e) => `Tareas: ${e}`,
-    apiIndisponivel: 'La API de Orca no está disponible en este panel.'
+    apiIndisponivel: 'La API de Orca no está disponible en este panel.',
+    trabalho: 'Trabajo', sistema: 'Sistema', memoria: 'Memoria', top5: 'Top 5', portasAbertas: 'Puertos abiertos',
+    soSuasPortas: 'solo de tus programas', disco: 'Disco', nNucleos: (n) => `${n} núcleos`, memLivre: 'Memoria libre',
+    emUso: (v, p) => `en uso ${v} · ${p}%`, emUsoCurto: 'en uso', apps: 'apps', buffers: 'búferes', cache: 'caché', livre: 'libre',
+    swap: (u, t) => `swap ${u} / ${t}`, programa: 'Programa', memCurto: 'Mem', nProc: (n) => `${n} proc.`,
+    agentesIA: 'Agentes de IA ahora', nenhumaPorta: 'Ninguno de tus programas tiene puertos abiertos.',
+    naoSuportado: 'Todavía no disponible en este sistema operativo.', portaRede: 'red',
+    portaRedeTitulo: 'Acepta conexiones de otras máquinas de la red, no solo de esta.',
+    atualizaCada: (n) => `se actualiza cada ${n} s`, sisPausado: '⏸ en pausa', ligadoHa: (d) => `encendido hace ${d}`,
+    carga: (v) => `carga ${v}`, soComAbaAberta: 'solo lee con esta pestaña abierta', rede: 'Red', bateria: 'Batería',
+    restantes: (d) => `quedan ${d}`, ateCarregar: (d) => `${d} para cargar`, carregando: 'cargando', carregada: 'cargada',
+    lendoSistema: 'Leyendo…', erroSistema: (e) => `No pude leer el sistema: ${e}`
   }
 
   const zh = {
@@ -120,7 +153,18 @@
     nenhumaTarefa: '还没有任务。添加你要做的事。', concluida: '已完成', removerTarefa: '删除任务', remover: '删除',
     lendo: '正在读取你的历史记录……第一次可能需要几秒钟。', atualizando: '正在刷新…',
     erroRelatorio: (e) => `无法生成报告：${e}`, erroPomodoro: (e) => `番茄钟：${e}`, erroTarefas: (e) => `任务：${e}`,
-    apiIndisponivel: '此面板无法使用 Orca API。'
+    apiIndisponivel: '此面板无法使用 Orca API。',
+    trabalho: '工作', sistema: '系统', memoria: '内存', top5: '前 5 名', portasAbertas: '开放端口',
+    soSuasPortas: '仅限你的程序', disco: '磁盘', nNucleos: (n) => `${n} 核`, memLivre: '可用内存',
+    emUso: (v, p) => `已用 ${v} · ${p}%`, emUsoCurto: '已用', apps: '应用', buffers: '缓冲', cache: '缓存', livre: '空闲',
+    swap: (u, t) => `交换 ${u} / ${t}`, programa: '程序', memCurto: '内存', nProc: (n) => `${n} 个进程`,
+    agentesIA: '正在运行的 AI 代理', nenhumaPorta: '你的程序没有开放端口。',
+    naoSuportado: '此操作系统暂不支持。', portaRede: '网络',
+    portaRedeTitulo: '接受网络中其他机器的连接，而不仅是本机。',
+    atualizaCada: (n) => `每 ${n} 秒刷新`, sisPausado: '⏸ 已暂停', ligadoHa: (d) => `已运行 ${d}`,
+    carga: (v) => `负载 ${v}`, soComAbaAberta: '仅在此标签页打开时读取', rede: '网络', bateria: '电池',
+    restantes: (d) => `剩余 ${d}`, ateCarregar: (d) => `${d} 后充满`, carregando: '充电中', carregada: '已充满',
+    lendoSistema: '读取中…', erroSistema: (e) => `无法读取系统信息：${e}`
   }
 
   const TEXTOS = { 'pt-BR': pt, en, es, 'zh-CN': zh }

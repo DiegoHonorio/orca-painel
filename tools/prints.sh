@@ -29,5 +29,6 @@ foto capa 1 "$raiz/media/cover.png"
 foto resumo 1 "$raiz/media/screenshot-resumo.png"
 foto historico 1 "$raiz/media/screenshot-historico.png"
 foto foco 1 "$raiz/media/screenshot-foco.png"
+foto sistema 1 "$raiz/media/screenshot-sistema.png"
 rsvg-convert -w 256 -h 256 "$raiz/media/icon.svg" -o "$raiz/media/icon.png" 2>/dev/null || true
 ls -la "$raiz/media"
