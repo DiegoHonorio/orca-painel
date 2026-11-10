@@ -13,6 +13,7 @@ import { lerGpus } from './sistema/gpu.ts'
 import { lerDiscos, lerMaquina } from './sistema/maquina.ts'
 import { lerPortas } from './sistema/portas.ts'
 import { lerProcessos } from './sistema/processos.ts'
+import { iniciarChats } from './chats.ts'
 import { idiomaDoSistema, resolverIdioma, textos, type Idioma } from './i18n.ts'
 
 type Config = {
@@ -26,6 +27,7 @@ type Config = {
   emailsGit: string
   idioma: string
   sistemaIntervalo: number
+  chatsAvisar: boolean
 }
 
 const PADRAO: Config = {
@@ -38,7 +40,8 @@ const PADRAO: Config = {
   pastasRepos: '~/dev',
   emailsGit: '',
   idioma: 'auto',
-  sistemaIntervalo: 3
+  sistemaIntervalo: 3,
+  chatsAvisar: true
 }
 
 const POMODORO_PARADO: EstadoPomodoro = {
@@ -325,6 +328,14 @@ export default function activate(orca: OrcaWorkerApi): void {
     }
   })
   orca.panels.handle('sistema.faixa', async () => lerFaixa())
+
+  // ---------- Chats abertos ----------
+
+  iniciarChats(orca, {
+    avisar: (titulo, corpo) => void avisar(titulo, corpo),
+    querAviso: async () => (await config()).chatsAvisar !== false,
+    textos: () => textos(idioma)
+  })
 
   // aquece o cache em segundo plano para o primeiro relatório abrir rápido
   setTimeout(() => void config().then(coletar).catch((e) => orca.log(`coleta falhou: ${e}`)), 2000)

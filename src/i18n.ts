@@ -16,6 +16,8 @@ type Textos = {
   pausaLongaDe: (n: number) => string
   pausaAcabou: string
   voltarAoFoco: string
+  esperando: string
+  chatSemTitulo: string
 }
 
 const TEXTOS: Record<Idioma, Textos> = {
@@ -23,25 +25,29 @@ const TEXTOS: Record<Idioma, Textos> = {
     pomodoro: 'Pomodoro', foco: 'Foco', pausa: 'Pausa', pausaLonga: 'Pausa longa', pausado: 'pausado',
     min: (n) => `${n} min`, tooltipParado: 'Pomodoro: clique para iniciar ou pausar', tooltipRotulo: (r) => `Pomodoro: ${r}`,
     focoConcluido: 'Foco concluído 🍅', pausaDe: (n) => `Pausa de ${n} min.`, pausaLongaDe: (n) => `Pausa longa de ${n} min.`,
-    pausaAcabou: 'A pausa acabou', voltarAoFoco: 'Hora de voltar ao foco.'
+    pausaAcabou: 'A pausa acabou', voltarAoFoco: 'Hora de voltar ao foco.',
+    esperando: 'Esperando você', chatSemTitulo: 'Chat sem título'
   },
   en: {
     pomodoro: 'Pomodoro', foco: 'Focus', pausa: 'Break', pausaLonga: 'Long break', pausado: 'paused',
     min: (n) => `${n} min`, tooltipParado: 'Pomodoro: click to start or pause', tooltipRotulo: (r) => `Pomodoro: ${r}`,
     focoConcluido: 'Focus done 🍅', pausaDe: (n) => `${n}-minute break.`, pausaLongaDe: (n) => `${n}-minute long break.`,
-    pausaAcabou: 'Break is over', voltarAoFoco: 'Time to get back to focus.'
+    pausaAcabou: 'Break is over', voltarAoFoco: 'Time to get back to focus.',
+    esperando: 'Waiting for you', chatSemTitulo: 'Untitled chat'
   },
   es: {
     pomodoro: 'Pomodoro', foco: 'Foco', pausa: 'Descanso', pausaLonga: 'Descanso largo', pausado: 'en pausa',
     min: (n) => `${n} min`, tooltipParado: 'Pomodoro: haz clic para iniciar o pausar', tooltipRotulo: (r) => `Pomodoro: ${r}`,
     focoConcluido: 'Foco terminado 🍅', pausaDe: (n) => `Descanso de ${n} min.`, pausaLongaDe: (n) => `Descanso largo de ${n} min.`,
-    pausaAcabou: 'Terminó el descanso', voltarAoFoco: 'Hora de volver a enfocarte.'
+    pausaAcabou: 'Terminó el descanso', voltarAoFoco: 'Hora de volver a enfocarte.',
+    esperando: 'Esperándote', chatSemTitulo: 'Chat sin título'
   },
   'zh-CN': {
     pomodoro: '番茄钟', foco: '专注', pausa: '休息', pausaLonga: '长休息', pausado: '已暂停',
     min: (n) => `${n} 分钟`, tooltipParado: '番茄钟：点击开始或暂停', tooltipRotulo: (r) => `番茄钟：${r}`,
     focoConcluido: '专注完成 🍅', pausaDe: (n) => `休息 ${n} 分钟。`, pausaLongaDe: (n) => `长休息 ${n} 分钟。`,
-    pausaAcabou: '休息结束', voltarAoFoco: '该回来专注了。'
+    pausaAcabou: '休息结束', voltarAoFoco: '该回来专注了。',
+    esperando: '等待你处理', chatSemTitulo: '未命名对话'
   }
 }
 

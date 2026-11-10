@@ -596,6 +596,7 @@
     desenharTarefas()
     desenharRelatorio()
     window.sistemaPainel?.redesenhar()
+    window.chatsPainel?.redesenhar()
   }
 
   // ---------- início ----------

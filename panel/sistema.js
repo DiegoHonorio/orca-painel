@@ -28,7 +28,7 @@
     rodando: false
   }
   try {
-    if (localStorage.getItem('painel.visao') === 'sistema') est.visao = 'sistema'
+    est.visao = ['sistema', 'chats'].includes(localStorage.getItem('painel.visao')) ? localStorage.getItem('painel.visao') : 'trabalho'
     est.ordem = localStorage.getItem('painel.ordem') === 'mem' ? 'mem' : 'cpu'
   } catch {
     // sem armazenamento: usa os padrões
@@ -372,6 +372,8 @@
     })
     $('visaoTrabalho').hidden = visao !== 'trabalho'
     $('visaoSistema').hidden = visao !== 'sistema'
+    $('visaoChats').hidden = visao !== 'chats'
+    window.dispatchEvent(new CustomEvent('painel:visao', { detail: visao }))
     desenharSistema()
     if (visao === 'sistema') ciclo()
   }

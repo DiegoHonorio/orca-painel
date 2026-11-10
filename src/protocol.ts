@@ -98,6 +98,19 @@ export type Sistema = SistemaMaquina & {
   intervaloS: number
 }
 
+/** "aberto": há um processo de agente na pasta, mas o Orca ainda não informou o estado. */
+export type EstadoChat = 'esperando' | 'trabalhando' | 'concluido' | 'aberto'
+export type Chat = { id: string; workspaceId: string; titulo: string | null; estado: EstadoChat; desde: number | null }
+export type Chats = {
+  /** Só os workspaces com chat; `pasta` é o repositório principal (worktrees somam nele). */
+  workspaces: { id: string; nome: string; pasta: string; branch: string | null; tipo: 'worktree' | 'folder' }[]
+  chats: Chat[]
+  /** Se este Orca sabe abrir um workspace a pedido do plugin. */
+  podeAbrir: boolean
+  /** Quantas pastas do Orca não têm chat aberto. */
+  semChat: number
+}
+
 declare module 'orca' {
   interface PluginRequests {
     'relatorio.obter': { input: { tipo: TipoPeriodo; deslocamento: number }; output: Relatorio }
@@ -109,6 +122,8 @@ declare module 'orca' {
     'idioma.sincronizar': { input: { idiomaOrca: string }; output: { idioma: string } }
     'sistema.obter': { input: { portas: boolean; discos: boolean }; output: Sistema }
     'sistema.faixa': { output: SistemaFaixa }
+    'chats.obter': { output: Chats }
+    'chats.abrir': { input: { workspaceId: string }; output: { ok: boolean } }
     'tarefas.obter': { output: Tarefa[] }
     'tarefas.alterar': {
       input: { acao: 'adicionar' | 'alternar' | 'remover' | 'editar' | 'limparFeitas'; id?: string; texto?: string }
@@ -119,5 +134,6 @@ declare module 'orca' {
     'pomodoro.mudou': EstadoPomodoro
     'tarefas.mudou': Tarefa[]
     'idioma.mudou': { idioma: string }
+    'chats.mudou': null
   }
 }

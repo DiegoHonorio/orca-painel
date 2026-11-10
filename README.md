@@ -12,7 +12,14 @@ A sidebar panel for [Orca](https://onorca.dev) that shows **what you worked on**
 - **Pomodoro** in the panel and in Orca's status bar, with a desktop notification at the end of each focus and break
 - **To-do list**: tasks you complete show up in the period's report
 
-A second tab, **System**, is a light htop for when you need it:
+A **Chats** tab lists the agent chats open in Orca's terminals, grouped by folder, so you don't have to scroll through every workspace to find the one that finished:
+
+- Only folders with an open chat show up; worktrees count toward their main repository
+- Chats **waiting for you** come first, then the ones **working**, then the ones **done**, with a counter on the tab
+- Filter by state or search by folder, branch or title; click a chat to jump to its workspace
+- Optional desktop notification when an agent stops and waits for you
+
+A third tab, **System**, is a light htop for when you need it:
 
 - **CPU** (total and per core), **GPU** (usage, VRAM, temperature, power and which programs use it) and **memory** (apps, buffers, cache, free, swap), with a short live chart
 - **Top 5 programs** by CPU or memory, processes of the same program added together
@@ -32,6 +39,7 @@ Everything stays on your machine. The plugin has **no network access, no analyti
 | --- | --- |
 | Claude Code transcripts | `~/.claude/projects/**/*.jsonl` (read-only) |
 | Codex sessions | `~/.codex/sessions/**/*.jsonl` (read-only) |
+| Chats tab | Orca's workspace list and agent status events; on Linux, the folder each running agent process works in (`/proc/<pid>/cwd`) to drop chats that were closed |
 | Your commits | `git log` in the repositories under the folders you configure (default `~/dev`), read-only |
 | System tab (only while visible) | CPU, GPU, memory, disk, network and battery counters; the name, CPU and memory of running programs; the listening ports of your own programs. Linux: `/proc`, `/sys` and `nvidia-smi`; macOS: `ps`, `lsof`, `netstat`, `pmset`, `ioreg`. A sleeping dedicated GPU is never queried, so it isn't woken up. Nothing is kept |
 

@@ -41,7 +41,11 @@
     atualizaCada: (n) => `atualiza a cada ${n} s`, sisPausado: '⏸ pausado', ligadoHa: (d) => `ligado há ${d}`,
     carga: (v) => `carga ${v}`, soComAbaAberta: 'lê só com esta aba aberta', rede: 'Rede', bateria: 'Bateria',
     restantes: (d) => `${d} restantes`, ateCarregar: (d) => `${d} para carregar`, carregando: 'carregando', carregada: 'carregada',
-    lendoSistema: 'Lendo…', erroSistema: (e) => `Não consegui ler o sistema: ${e}`
+    lendoSistema: 'Lendo…', erroSistema: (e) => `Não consegui ler o sistema: ${e}`,
+    chats: 'Chats', chTodos: 'Todos', chEsperando: 'Esperando você', chEsperandoCurto: 'Esperando', chTrabalhando: 'Trabalhando', chConcluido: 'Concluído', chConcluidos: 'Concluídos', chAberto: 'Aberto',
+    chBuscar: 'Buscar pasta, branch ou título', chSemTitulo: '(sem título)', chNenhum: 'Nenhum chat aberto nos terminais do Orca.', chNenhumFiltro: 'Nenhum chat com esse filtro.',
+    chAbrir: 'Abrir no Orca', chErro: (e) => `Não consegui ler os chats: ${e}`, chErroAbrir: (e) => `Não consegui abrir: ${e}`,
+    chNota: (c, p, s) => `${c} ${c === 1 ? 'chat' : 'chats'} em ${p} ${p === 1 ? 'pasta' : 'pastas'}${s ? ` · ${s} ${s === 1 ? 'pasta sem chat oculta' : 'pastas sem chat ocultas'}` : ''}`
   }
 
   const en = {
@@ -82,7 +86,11 @@
     atualizaCada: (n) => `refreshes every ${n}s`, sisPausado: '⏸ paused', ligadoHa: (d) => `up ${d}`,
     carga: (v) => `load ${v}`, soComAbaAberta: 'reads only while this tab is open', rede: 'Network', bateria: 'Battery',
     restantes: (d) => `${d} left`, ateCarregar: (d) => `${d} to full`, carregando: 'charging', carregada: 'charged',
-    lendoSistema: 'Reading…', erroSistema: (e) => `Couldn’t read the system: ${e}`
+    lendoSistema: 'Reading…', erroSistema: (e) => `Couldn’t read the system: ${e}`,
+    chats: 'Chats', chTodos: 'All', chEsperando: 'Waiting for you', chEsperandoCurto: 'Waiting', chTrabalhando: 'Working', chConcluido: 'Done', chConcluidos: 'Done', chAberto: 'Open',
+    chBuscar: 'Search folder, branch or title', chSemTitulo: '(untitled)', chNenhum: 'No chats open in Orca’s terminals.', chNenhumFiltro: 'No chats match this filter.',
+    chAbrir: 'Open in Orca', chErro: (e) => `Couldn’t read the chats: ${e}`, chErroAbrir: (e) => `Couldn’t open it: ${e}`,
+    chNota: (c, p, s) => `${c} ${c === 1 ? 'chat' : 'chats'} in ${p} ${p === 1 ? 'folder' : 'folders'}${s ? ` · ${s} ${s === 1 ? 'folder' : 'folders'} without chats hidden` : ''}`
   }
 
   const es = {
@@ -123,7 +131,11 @@
     atualizaCada: (n) => `se actualiza cada ${n} s`, sisPausado: '⏸ en pausa', ligadoHa: (d) => `encendido hace ${d}`,
     carga: (v) => `carga ${v}`, soComAbaAberta: 'solo lee con esta pestaña abierta', rede: 'Red', bateria: 'Batería',
     restantes: (d) => `quedan ${d}`, ateCarregar: (d) => `${d} para cargar`, carregando: 'cargando', carregada: 'cargada',
-    lendoSistema: 'Leyendo…', erroSistema: (e) => `No pude leer el sistema: ${e}`
+    lendoSistema: 'Leyendo…', erroSistema: (e) => `No pude leer el sistema: ${e}`,
+    chats: 'Chats', chTodos: 'Todos', chEsperando: 'Esperándote', chEsperandoCurto: 'Esperando', chTrabalhando: 'Trabajando', chConcluido: 'Terminado', chConcluidos: 'Terminados', chAberto: 'Abierto',
+    chBuscar: 'Buscar carpeta, rama o título', chSemTitulo: '(sin título)', chNenhum: 'No hay chats abiertos en las terminales de Orca.', chNenhumFiltro: 'Ningún chat con este filtro.',
+    chAbrir: 'Abrir en Orca', chErro: (e) => `No pude leer los chats: ${e}`, chErroAbrir: (e) => `No pude abrirlo: ${e}`,
+    chNota: (c, p, s) => `${c} ${c === 1 ? 'chat' : 'chats'} en ${p} ${p === 1 ? 'carpeta' : 'carpetas'}${s ? ` · ${s} ${s === 1 ? 'carpeta sin chats oculta' : 'carpetas sin chats ocultas'}` : ''}`
   }
 
   const zh = {
@@ -164,7 +176,11 @@
     atualizaCada: (n) => `每 ${n} 秒刷新`, sisPausado: '⏸ 已暂停', ligadoHa: (d) => `已运行 ${d}`,
     carga: (v) => `负载 ${v}`, soComAbaAberta: '仅在此标签页打开时读取', rede: '网络', bateria: '电池',
     restantes: (d) => `剩余 ${d}`, ateCarregar: (d) => `${d} 后充满`, carregando: '充电中', carregada: '已充满',
-    lendoSistema: '读取中…', erroSistema: (e) => `无法读取系统信息：${e}`
+    lendoSistema: '读取中…', erroSistema: (e) => `无法读取系统信息：${e}`,
+    chats: '对话', chTodos: '全部', chEsperando: '等待你处理', chEsperandoCurto: '等待中', chTrabalhando: '运行中', chConcluido: '已完成', chConcluidos: '已完成', chAberto: '已打开',
+    chBuscar: '搜索文件夹、分支或标题', chSemTitulo: '（无标题）', chNenhum: 'Orca 终端中没有打开的对话。', chNenhumFiltro: '没有符合筛选条件的对话。',
+    chAbrir: '在 Orca 中打开', chErro: (e) => `无法读取对话：${e}`, chErroAbrir: (e) => `无法打开：${e}`,
+    chNota: (c, p, s) => `${p} 个文件夹中有 ${c} 个对话${s ? ` · 已隐藏 ${s} 个无对话的文件夹` : ''}`
   }
 
   const TEXTOS = { 'pt-BR': pt, en, es, 'zh-CN': zh }
