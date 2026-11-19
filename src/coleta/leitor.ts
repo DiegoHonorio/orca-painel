@@ -8,17 +8,19 @@ import { dirname, join } from 'node:path'
 export type RegistroUso = {
   k: string // chave para não contar duas vezes
   t: number // horário (ms)
-  f: 'claude' | 'codex'
+  f: 'claude' | 'codex' | 'grok' | 'opencode'
   p: string // projeto
   m: string // modelo
   s: string // sessão
   u: [number, number, number, number, number]
+  /** USD already computed by the source. When set, the price table is not applied. */
+  custo?: number
 }
 
 /** Uma sessão de trabalho: título, projeto, branch e os horários em que houve atividade. */
 export type Sessao = {
   id: string
-  f: 'claude' | 'codex'
+  f: 'claude' | 'codex' | 'grok' | 'opencode'
   titulo: string
   p: string
   b: string

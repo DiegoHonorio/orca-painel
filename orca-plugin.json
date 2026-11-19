@@ -3,8 +3,8 @@
   "manifestVersion": 2,
   "id": "painel-trabalho",
   "name": "Painel de Trabalho",
-  "version": "0.6.0",
-  "description": "See what you worked on by day, week and month (Claude Code and Codex time, tokens, estimated cost, commits, pomodoro, to-dos), the chats open in each folder, plus a light system view: CPU, GPU, memory, top programs, open ports, network and battery. Everything stays on your machine. English, Português, Español, 中文.",
+  "version": "0.7.0",
+  "description": "See what you worked on by day, week and month (Claude Code, Codex, Grok and OpenCode time, tokens, estimated cost, commits, pomodoro, to-dos), the chats open in each folder, plus a light system view: CPU, GPU, memory, top programs, open ports, network and battery. Everything stays on your machine. English, Português, Español, 中文.",
   "license": "MIT",
   "author": {
     "name": "Diego Honorio Santos"
@@ -155,6 +155,24 @@
         "title": "Codex data folders (comma-separated)",
         "type": "string",
         "default": "~/.codex"
+      },
+      {
+        "key": "pastasGrok",
+        "title": "Grok session folders (comma-separated)",
+        "type": "string",
+        "default": "~/.grok/sessions"
+      },
+      {
+        "key": "pastasOpenCode",
+        "title": "OpenCode data folders (comma-separated)",
+        "type": "string",
+        "default": "~/.local/share/opencode"
+      },
+      {
+        "key": "provedoresOpenCodeIgnorados",
+        "title": "OpenCode providers to skip, already counted elsewhere (comma-separated)",
+        "type": "string",
+        "default": "claude-agent,codex,codex-agent"
       },
       {
         "key": "pastasRepos",

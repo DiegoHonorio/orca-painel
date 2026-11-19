@@ -12,7 +12,7 @@ import { LINUX, camposStat, listarPids } from './sistema/util.ts'
 type Agente = { workspaceId: string; terminalId: string | null; titulo: string | null; estado: EstadoChat; desde: number; visto: number }
 type Workspace = { id: string; kind: 'worktree' | 'folder'; name: string; path: string; branch: string | null }
 
-const AGENTES = /^(claude|codex|opencode|gemini|aider|cursor-agent|goose|amp|qwen|copilot)$/i
+const AGENTES = /^(claude|codex|opencode|grok|gemini|aider|cursor-agent|goose|amp|qwen|copilot)$/i
 const CHAVE = 'chatsAgentes'
 /** Um chat recém-ouvido não é removido por falta de processo (o agente pode estar subindo). */
 const CARENCIA_MS = 90_000

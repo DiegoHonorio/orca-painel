@@ -101,6 +101,7 @@ function totaisSimples(usos: RegistroUso[], sessoes: Sessao[], p: Periodo) {
 }
 
 function custoDe(r: RegistroUso): number | null {
+  if (typeof r.custo === 'number') return r.custo
   return custoEstimado(r.m, { entrada: r.u[0], saida: r.u[1], escritaCache5m: r.u[2], escritaCache1h: r.u[3], leituraCache: r.u[4] })
 }
 
