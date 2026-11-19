@@ -6,7 +6,7 @@ A sidebar panel for [Orca](https://onorca.dev) that shows **what you worked on**
 
 - **Active time** of your coding agents, without double counting agents that run in parallel, compared with the previous period
 - **Where the time went**, project by project (worktrees count toward their main repository)
-- **Tokens and estimated cost** for Claude Code and Codex, per project and per model
+- **Tokens and estimated cost** for Claude Code, Codex, Grok and OpenCode, per project and per model
 - **Sessions**: title, project, branch, time and cost of each one
 - **Your commits** across every repository in the folders you choose
 - **Pomodoro** in the panel and in Orca's status bar, with a desktop notification at the end of each focus and break
@@ -39,6 +39,8 @@ Everything stays on your machine. The plugin has **no network access, no analyti
 | --- | --- |
 | Claude Code transcripts | `~/.claude/projects/**/*.jsonl` (read-only) |
 | Codex sessions | `~/.codex/sessions/**/*.jsonl` (read-only) |
+| Grok sessions | `~/.grok/sessions/<cwd>/<id>/summary.json` and `usage.json` (read-only) |
+| OpenCode sessions | `~/.local/share/opencode/opencode.db`, table `session_v2` (read-only, via the `sqlite3` binary). Providers that wrap a CLI already counted above (`claude-agent`, `codex`, `codex-agent`) are skipped |
 | Chats tab | Orca's workspace list and agent status events; on Linux, the folder each running agent process works in (`/proc/<pid>/cwd`) to drop chats that were closed |
 | Your commits | `git log` in the repositories under the folders you configure (default `~/dev`), read-only |
 | System tab (only while visible) | CPU, GPU, memory, disk, network and battery counters; the name, CPU and memory of running programs; the listening ports of your own programs. Linux: `/proc`, `/sys` and `nvidia-smi`; macOS: `ps`, `lsof`, `netstat`, `pmset`, `ioreg`. A sleeping dedicated GPU is never queried, so it isn't woken up. Nothing is kept |
@@ -64,7 +66,7 @@ Orca asks you to approve it, because it runs its own code (to read the files abo
 
 ## Settings
 
-**Settings → Plugins → Painel de Trabalho**: language, pomodoro length, the Claude Code, Codex and repository folders, and your commit e-mail addresses (empty means `git config user.email`).
+**Settings → Plugins → Painel de Trabalho**: language, pomodoro length, the Claude Code, Codex, Grok, OpenCode and repository folders, and your commit e-mail addresses (empty means `git config user.email`).
 
 ## Development
 
@@ -76,7 +78,7 @@ orca plugin dev watch .     # loads this folder into Orca and reloads on save
 | Path | What it is |
 | --- | --- |
 | `src/worker.ts` | Plugin process: pomodoro, tasks, answers to the panel |
-| `src/coleta/` | Reading Claude Code, Codex and git, plus the price table |
+| `src/coleta/` | Reading Claude Code, Codex, Grok, OpenCode and git, plus the price table |
 | `src/relatorio.ts` | Aggregation per period |
 | `src/protocol.ts` | Contract between panel and worker |
 | `panel/` | The panel (HTML, CSS and JS, no build step) |
@@ -90,9 +92,9 @@ orca plugin dev watch .     # loads this folder into Orca and reloads on save
 
 ## Em português
 
-Painel para o Orca que mostra no que você trabalhou por dia, semana e mês: tempo ativo dos agentes, onde foi o tempo por projeto, tokens e custo estimado do Claude Code e do Codex, sessões, commits, pomodoro e tarefas. A aba **Sistema** é um htop leve: CPU, GPU, memória, top 5 programas, agentes de IA rodando, portas abertas pelos seus programas, disco, rede e bateria; só lê com o painel visível. Disponível em português, inglês, espanhol e chinês: segue o idioma do Orca ou o que você escolher nas configurações do plugin.
+Painel para o Orca que mostra no que você trabalhou por dia, semana e mês: tempo ativo dos agentes, onde foi o tempo por projeto, tokens e custo estimado do Claude Code, do Codex, do Grok e do OpenCode, sessões, commits, pomodoro e tarefas. A aba **Sistema** é um htop leve: CPU, GPU, memória, top 5 programas, agentes de IA rodando, portas abertas pelos seus programas, disco, rede e bateria; só lê com o painel visível. Disponível em português, inglês, espanhol e chinês: segue o idioma do Orca ou o que você escolher nas configurações do plugin.
 
-**Privacidade:** tudo fica na sua máquina. O plugin não acessa a rede e não coleta nada. Ele só lê as transcrições do Claude Code e do Codex e roda `git log` em modo só leitura. O cache fica em `~/.cache/orca-painel/`, legível só pelo seu usuário.
+**Privacidade:** tudo fica na sua máquina. O plugin não acessa a rede e não coleta nada. Ele só lê as transcrições do Claude Code, do Codex, do Grok e do OpenCode e roda `git log` em modo só leitura. O cache fica em `~/.cache/orca-painel/`, legível só pelo seu usuário.
 
 O custo é uma estimativa pelos preços da API. No plano de assinatura você não paga por token.
 

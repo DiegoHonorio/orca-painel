@@ -3,6 +3,8 @@
 import type { OrcaWorkerApi } from 'orca/worker'
 import { coletarClaude } from './coleta/claude.ts'
 import { coletarCodex } from './coleta/codex.ts'
+import { coletarGrok } from './coleta/grok.ts'
+import { coletarOpenCode } from './coleta/opencode.ts'
 import { coletarCommits } from './coleta/git.ts'
 import type { RegistroUso, Sessao } from './coleta/leitor.ts'
 import { listaDePastas } from './coleta/projeto.ts'
@@ -23,6 +25,9 @@ type Config = {
   ciclosAtePausaLonga: number
   pastasClaude: string
   pastasCodex: string
+  pastasGrok: string
+  pastasOpenCode: string
+  provedoresOpenCodeIgnorados: string
   pastasRepos: string
   emailsGit: string
   idioma: string
@@ -37,6 +42,11 @@ const PADRAO: Config = {
   ciclosAtePausaLonga: 4,
   pastasClaude: '~/.claude',
   pastasCodex: '~/.codex',
+  pastasGrok: '~/.grok/sessions',
+  pastasOpenCode: '~/.local/share/opencode',
+  // claude-agent is the Claude login inside OpenCode. codex / codex-agent would be the
+  // same kind of CLI wrapper. openai/gpt-*-codex is not in this list.
+  provedoresOpenCodeIgnorados: 'claude-agent,codex,codex-agent',
   pastasRepos: '~/dev',
   emailsGit: '',
   idioma: 'auto',
@@ -267,7 +277,12 @@ export default function activate(orca: OrcaWorkerApi): void {
   const coletar = (c: Config) => {
     if (!coletaEmAndamento) {
       coletaEmAndamento = (async () => {
-        const caches = [coletarClaude(listaDePastas(c.pastasClaude, PADRAO.pastasClaude)), coletarCodex(listaDePastas(c.pastasCodex, PADRAO.pastasCodex))]
+        const caches = [
+          coletarClaude(listaDePastas(c.pastasClaude, PADRAO.pastasClaude)),
+          coletarCodex(listaDePastas(c.pastasCodex, PADRAO.pastasCodex)),
+          coletarGrok(listaDePastas(c.pastasGrok, PADRAO.pastasGrok)),
+          coletarOpenCode(listaDePastas(c.pastasOpenCode, PADRAO.pastasOpenCode), listaDePastas(c.provedoresOpenCodeIgnorados, PADRAO.provedoresOpenCodeIgnorados))
+        ]
         const vistos = new Set<string>()
         const usos: RegistroUso[] = []
         const sessoes = new Map<string, Sessao>()

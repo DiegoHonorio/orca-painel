@@ -6,7 +6,7 @@ import type { SistemaProcesso } from '../protocol.ts'
 import { LINUX, MAC, camposStat, executar, lerTexto, listarPids, tamanhoPagina, ticksPorSegundo } from './util.ts'
 
 /** Agentes de IA de terminal que ganham um bloco próprio. */
-const AGENTES = /^(claude|codex|opencode|gemini|aider|cursor-agent|goose|amp|qwen|copilot)$/i
+const AGENTES = /^(claude|codex|opencode|grok|gemini|aider|cursor-agent|goose|amp|qwen|copilot)$/i
 
 // o nome em /proc/<pid>/stat é cortado em 15 caracteres ("Isolated Web Co"); aí vale o executável
 const nomesLongos = new Map<number, string>()
